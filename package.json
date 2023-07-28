@@ -1,0 +1,22 @@
+{
+  "name": "lokaj",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BizTheHabesha/lokaj.git"
+  },
+  "author": "BizTheHabesha and JosephTeklu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BizTheHabesha/lokaj/issues"
+  },
+  "homepage": "https://github.com/BizTheHabesha/lokaj#readme",
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
