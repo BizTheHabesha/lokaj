@@ -3,21 +3,45 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "author": "BizTheHabesha and JosephTeklu",
+  "license": "ISC",
+  "homepage": "https://BizTheHabesha.github.io/lokaj",
   "dependencies": {
     "@chakra-ui/react": "^2.8.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "gh-pages": "^5.0.0",
     "bcrypt": "^5.1.0",
     "framer-motion": "^10.14.0",
     "jsonwebtoken": "^9.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
+    "react-icons": "^4.10.1",
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "author": "",
-  "license": "ISC"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.8.0",
+    "@testing-library/react": "^9.5.0"
+  }
 }
