@@ -1,7 +1,12 @@
 import React from "react";
+import PageContent from "../../components/PageContent";
 
 function Reports() {
-	return <h1>REPORTS</h1>;
+	return (
+		<PageContent active={3}>
+			<h1>REPORTS</h1>;
+		</PageContent>
+	);
 }
 
 export default Reports;

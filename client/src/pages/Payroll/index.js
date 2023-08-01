@@ -1,7 +1,12 @@
 import React from "react";
+import PageContent from "../../components/PageContent";
 
 function Payroll() {
-	return <h1>PAYROLL</h1>;
+	return (
+		<PageContent active={2}>
+			<h1>Payroll</h1>
+		</PageContent>
+	);
 }
 
 export default Payroll;
