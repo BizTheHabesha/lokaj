@@ -57,6 +57,13 @@ const ticketSchema = new Schema({
 			return ["In", "Out", "Checked Out"].find(data);
 		},
 	},
+	type: {
+		type: String,
+		required: true,
+		validate: function (data){
+			return ["OvernightValet", "OvernightSelf", "DailyValet", "DailySelf"]
+		}
+	},
 	damageCheck: [{ type: Number, default: [] }],
 });
 
