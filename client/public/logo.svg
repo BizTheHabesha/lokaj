@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 266.44px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        font-family: Calibri, Calibri;
+      }
+
+      .cls-2 {
+        font-size: 140.85px;
+      }
+
+      .cls-3 {
+        font-size: 337.87px;
+      }
+    </style>
+  </defs>
+  <text class="cls-3" transform="translate(-230.2 406.28) rotate(-19.55)"><tspan x="0" y="0">G</tspan></text>
+  <text class="cls-1" transform="translate(-19.78 183.7)"><tspan x="0" y="0">B</tspan></text>
+  <text class="cls-2" transform="translate(119.53 195.62) rotate(-19.55)"><tspan x="0" y="0">G</tspan></text>
+</svg>
