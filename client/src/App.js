@@ -1,6 +1,4 @@
 import React from "react";
-import Navbar from "./pages/Navbar";
-import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import Ticket from "./pages/Ticket";
@@ -23,12 +21,13 @@ function App() {
 			<Router>
 				<Routes>
 					<Route path="/" element={<Home />} /> {/* main menu */}
-					<Route path="/login" element={<Login />} /> {}
+					<Route path="/login" element={<Login />} />
 					<Route path="/carlog" element={<CarLog />} />
 					<Route path="/payroll" element={<Payroll />} />
 					<Route path="/reports" element={<Reports />} />
 					<Route path="/clock" element={<Clock />} />
 					<Route path="/tickets/:id" element={<Ticket />} />
+					<Route path="/users/:id" element={<User />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</Router>
