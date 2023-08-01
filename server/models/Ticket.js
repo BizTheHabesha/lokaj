@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose");
 const ticketSchema = new Schema({
 	ticketId: {
 		type: String,
+		unique: true,
 		required: true,
 	},
 	lastName: {
@@ -60,5 +61,4 @@ const ticketSchema = new Schema({
 });
 
 const Ticket = model("Ticket", ticketSchema);
-
 module.exports = Ticket;
