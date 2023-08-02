@@ -27,7 +27,7 @@ function CarLog(props) {
 	const scheme = props.defaultScheme;
 
 	return (
-		<PageContent active={1}>
+		<PageContent active={1} defaultScheme={scheme}>
 			<Grid
 				h="50vh"
 				templateRows="reapeat(3, 1fr)"
@@ -85,7 +85,7 @@ function CarLog(props) {
 							justifyContent={"space-between"}>
 							<Heading pl={1}>Requests</Heading>
 						</Container>
-						<Table variant="striped" colorScheme="scheme">
+						<Table variant="striped" colorScheme={scheme}>
 							<TableCaption>Dailies</TableCaption>
 							<Thead>
 								<Tr>
@@ -116,7 +116,7 @@ function CarLog(props) {
 						Daily
 					</Heading>
 					<TableContainer>
-						<Table variant="striped" colorScheme="scheme">
+						<Table variant="striped" colorScheme={scheme}>
 							<TableCaption>Overnight Self</TableCaption>
 							<Thead>
 								<Tr>
@@ -151,7 +151,7 @@ function CarLog(props) {
 							justifyContent={"space-between"}>
 							<Heading pl={1}>History</Heading>
 						</Container>
-						<Table variant="striped" colorScheme="scheme">
+						<Table variant="striped" colorScheme={scheme}>
 							<TableCaption>Dailies</TableCaption>
 							<Thead>
 								<Tr>
