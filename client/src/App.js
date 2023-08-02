@@ -9,6 +9,7 @@ import Payroll from "./pages/Payroll";
 import Reports from "./pages/Reports";
 import Clock from "./pages/Clock";
 import NotFound from "./pages/NotFound";
+import User from "./pages/User";
 
 const client = new ApolloClient({
 	url: "/graphql",
