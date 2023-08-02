@@ -8,3 +8,5 @@ function User() {
 		</PageContent>
 	);
 }
+
+export default User;
