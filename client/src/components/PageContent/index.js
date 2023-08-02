@@ -5,7 +5,14 @@ import Navbar from "../../pages/Navbar";
 function PageContent(props) {
 	return (
 		<div className="page-content">
-			{props.nonav ? "" : <Navbar active={props.active} />}
+			{props.nonav ? (
+				""
+			) : (
+				<Navbar
+					defaultScheme={props.defaultScheme}
+					active={props.active}
+				/>
+			)}
 			<div className="page-content-page">{props.children}</div>
 		</div>
 	);
