@@ -1,13 +1,20 @@
-import { Box } from "@chakra-ui/react";
+import { Center } from "@chakra-ui/react";
 import React from "react";
 import Navbar from "../../pages/Navbar";
 
 function PageContent(props) {
 	return (
-		<>
-			{props.nonav ? "" : <Navbar active={props.active} />}
-			{props.children}
-		</>
+		<div className="page-content">
+			{props.nonav ? (
+				""
+			) : (
+				<Navbar
+					defaultScheme={props.defaultScheme}
+					active={props.active}
+				/>
+			)}
+			<div className="page-content-page">{props.children}</div>
+		</div>
 	);
 }
 

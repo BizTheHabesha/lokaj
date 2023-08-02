@@ -1,13 +1,24 @@
 import React from "react";
-import { Box, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
+import {
+	GridItem,
+	Grid,
+	TableContainer,
+	Table,
+	TableCaption,
+	Thead,
+	Th,
+	Tr,
+	Td,
+	Tbody,
+	Tfoot,
+} from "@chakra-ui/react";
+import { uuid } from "../../utils/helpers";
 import PageContent from "../../components/PageContent";
 
-function Home() {
+function Home(props) {
 	return (
 		<PageContent active={0}>
-			<Box></Box>
-			<Box></Box>
-			<Box></Box>
+			<h1>HOME</h1>
 		</PageContent>
 	);
 }
