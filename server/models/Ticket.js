@@ -65,7 +65,14 @@ const ticketSchema = new Schema({
 		},
 		
 	},
-	damageCheck: [{ type: Number, default: [], ref: "damageCheck" }],
+	damageCheck: {
+		type: Number,
+		required: true,
+	},
+	comments: {
+		type: String,
+		default: "None"
+	}
 });
 
 const Ticket = model("Ticket", ticketSchema);
