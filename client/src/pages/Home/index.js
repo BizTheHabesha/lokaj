@@ -2,23 +2,519 @@ import React from "react";
 import {
 	GridItem,
 	Grid,
-	TableContainer,
-	Table,
-	TableCaption,
-	Thead,
-	Th,
-	Tr,
-	Td,
-	Tbody,
-	Tfoot,
+	Card,
+	CardHeader,
+	Heading,
+	StatArrow,
+	CardBody,
+	CardFooter,
+	Button,
+	HStack,
+	StatGroup,
+	Stat,
+	StatLabel,
+	StatNumber,
+	StatHelpText,
+	VStack,
+	Image,
 } from "@chakra-ui/react";
 import { uuid } from "../../utils/helpers";
 import PageContent from "../../components/PageContent";
+import { DateTime } from "luxon";
+import { BsArrowRight } from "react-icons/bs";
 
 function Home(props) {
+	const griditembg = "papayawhip";
+	const scheme = props.defaultScheme;
 	return (
-		<PageContent active={0}>
-			<h1>HOME</h1>
+		<PageContent defaultScheme={scheme} active={0}>
+			<Grid
+				h={"100vh"}
+				templateRows="reapeat(3, 1fr)"
+				templateColumns="repeat(4, 3fr)"
+				gap={5}>
+				<GridItem rowSpan={3} colSpan={1} bg={griditembg}>
+					<Heading pl={2}>Events</Heading>
+					<VStack></VStack>
+				</GridItem>
+				<GridItem colSpan={3} rowSpan={1} bg={griditembg}>
+					<HStack>
+						<Image src="logo.svg" h="30rem" />
+						<Image src="img/ghdlogo.png" h="30rem" />
+					</HStack>
+				</GridItem>
+				<GridItem colSpan={3} bg={griditembg}>
+					<Heading pt={2} pl={2} h="10%">
+						Check Out Forecast
+					</Heading>
+					<HStack px={2} h="40%">
+						<Card h="100%" w="20%">
+							<CardHeader>
+								<Heading size="md">
+									{DateTime.now()
+										.plus({ days: 0 })
+										.toFormat("LLL  dd")}
+								</Heading>
+							</CardHeader>
+							<CardBody>
+								<HStack>
+									<StatGroup
+										w={"100%"}
+										display={"flex"}
+										justifyContent={"space-between"}>
+										<Stat>
+											<StatLabel>Valet</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Self</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Daily</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+									</StatGroup>
+								</HStack>
+							</CardBody>
+							<CardFooter>
+								<Button>
+									See in Search <BsArrowRight />
+								</Button>
+							</CardFooter>
+						</Card>
+						<Card h="100%" w="20%">
+							<CardHeader>
+								<Heading size="md">
+									{DateTime.now()
+										.plus({ days: 1 })
+										.toFormat("LLL  dd")}
+								</Heading>
+							</CardHeader>
+							<CardBody>
+								<HStack>
+									<StatGroup
+										w={"100%"}
+										display={"flex"}
+										justifyContent={"space-between"}>
+										<Stat>
+											<StatLabel>Valet</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Self</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Daily</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+									</StatGroup>
+								</HStack>
+							</CardBody>
+							<CardFooter>
+								<Button>
+									See in Search <BsArrowRight />
+								</Button>
+							</CardFooter>
+						</Card>
+						<Card h="100%" w="20%">
+							<CardHeader>
+								<Heading size="md">
+									{DateTime.now()
+										.plus({ days: 2 })
+										.toFormat("LLL  dd")}
+								</Heading>
+							</CardHeader>
+							<CardBody>
+								<HStack>
+									<StatGroup
+										w={"100%"}
+										display={"flex"}
+										justifyContent={"space-between"}>
+										<Stat>
+											<StatLabel>Valet</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Self</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Daily</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+									</StatGroup>
+								</HStack>
+							</CardBody>
+							<CardFooter>
+								<Button>
+									See in Search <BsArrowRight />
+								</Button>
+							</CardFooter>
+						</Card>
+						<Card h="100%" w="20%">
+							<CardHeader>
+								<Heading size="md">
+									{DateTime.now()
+										.plus({ days: 3 })
+										.toFormat("LLL  dd")}
+								</Heading>
+							</CardHeader>
+							<CardBody>
+								<HStack>
+									<StatGroup
+										w={"100%"}
+										display={"flex"}
+										justifyContent={"space-between"}>
+										<Stat>
+											<StatLabel>Valet</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Self</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Daily</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+									</StatGroup>
+								</HStack>
+							</CardBody>
+							<CardFooter>
+								<Button>View here</Button>
+							</CardFooter>
+						</Card>
+						<Card h="100%" w="20%">
+							<CardHeader>
+								<Heading size="md">
+									{DateTime.now()
+										.plus({ days: 4 })
+										.toFormat("LLL  dd")}
+								</Heading>
+							</CardHeader>
+							<CardBody>
+								<HStack>
+									<StatGroup
+										w={"100%"}
+										display={"flex"}
+										justifyContent={"space-between"}>
+										<Stat>
+											<StatLabel>Valet</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Self</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Daily</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+									</StatGroup>
+								</HStack>
+							</CardBody>
+							<CardFooter>
+								<Button>
+									See in Search <BsArrowRight />
+								</Button>
+							</CardFooter>
+						</Card>
+					</HStack>
+					<Heading pt={2} pl={2} h="10%">
+						Check In Forecast
+					</Heading>
+					<HStack px={2} pb={2} h="40%">
+						<Card h="100%" w="20%">
+							<CardHeader>
+								<Heading size="md">
+									{DateTime.now()
+										.plus({ days: 0 })
+										.toFormat("LLL  dd")}
+								</Heading>
+							</CardHeader>
+							<CardBody>
+								<HStack>
+									<StatGroup
+										w={"100%"}
+										display={"flex"}
+										justifyContent={"space-between"}>
+										<Stat>
+											<StatLabel>Valet</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Self</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Daily</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+									</StatGroup>
+								</HStack>
+								<Button>
+									See in Search <BsArrowRight />
+								</Button>
+							</CardBody>
+						</Card>
+						<Card h="100%" w="20%">
+							<CardHeader>
+								<Heading size="md">
+									{DateTime.now()
+										.plus({ days: 1 })
+										.toFormat("LLL  dd")}
+								</Heading>
+							</CardHeader>
+							<CardBody>
+								<HStack>
+									<StatGroup
+										w={"100%"}
+										display={"flex"}
+										justifyContent={"space-between"}>
+										<Stat>
+											<StatLabel>Valet</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Self</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Daily</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+									</StatGroup>
+								</HStack>
+								<Button>
+									See in Search <BsArrowRight />
+								</Button>
+							</CardBody>
+						</Card>
+						<Card h="100%" w="20%">
+							<CardHeader>
+								<Heading size="md">
+									{DateTime.now()
+										.plus({ days: 2 })
+										.toFormat("LLL  dd")}
+								</Heading>
+							</CardHeader>
+							<CardBody>
+								<HStack>
+									<StatGroup
+										w={"100%"}
+										display={"flex"}
+										justifyContent={"space-between"}>
+										<Stat>
+											<StatLabel>Valet</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Self</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Daily</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+									</StatGroup>
+								</HStack>
+								<Button>
+									See in Search <BsArrowRight />
+								</Button>
+							</CardBody>
+						</Card>
+						<Card h="100%" w="20%">
+							<CardHeader>
+								<Heading size="md">
+									{DateTime.now()
+										.plus({ days: 3 })
+										.toFormat("LLL  dd")}
+								</Heading>
+							</CardHeader>
+							<CardBody>
+								<HStack>
+									<StatGroup
+										w={"100%"}
+										display={"flex"}
+										justifyContent={"space-between"}>
+										<Stat>
+											<StatLabel>Valet</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Self</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Daily</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+									</StatGroup>
+								</HStack>
+								<Button>
+									See in Search <BsArrowRight />
+								</Button>
+							</CardBody>
+						</Card>
+						<Card h="100%" w="20%">
+							<CardHeader>
+								<Heading size="md">
+									{DateTime.now()
+										.plus({ days: 4 })
+										.toFormat("LLL  dd")}
+								</Heading>
+							</CardHeader>
+							<CardBody>
+								<HStack>
+									<StatGroup
+										w={"100%"}
+										display={"flex"}
+										justifyContent={"space-between"}>
+										<Stat>
+											<StatLabel>Valet</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Self</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+										<Stat>
+											<StatLabel>Daily</StatLabel>
+											<StatNumber>60</StatNumber>
+											<StatHelpText>
+												<StatArrow type="increase" />
+												High
+											</StatHelpText>
+										</Stat>
+									</StatGroup>
+								</HStack>
+								<Button>
+									See in Search <BsArrowRight />
+								</Button>
+							</CardBody>
+						</Card>
+					</HStack>
+				</GridItem>
+				<GridItem colSpan={3} bg={griditembg}></GridItem>
+			</Grid>
 		</PageContent>
 	);
 }
