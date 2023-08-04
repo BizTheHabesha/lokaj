@@ -8,10 +8,12 @@ db.once("open", async() => {
     await Ticket.create({
         ticketId: "111000", 
         lastName: "Smith", 
-        firstName: "John", 
+        firstName: "Josh",
+        room: "111",
         lastRunner: "Biz", 
         status: "In",
-        type: "OvernightValet"
+        type: "OvernightValet",
+        damageCheck: "01212022001",
     });
     console.log("Tickets seeded");
 
@@ -23,7 +25,8 @@ db.once("open", async() => {
         lastName: "Gebrekidan",
         firstName: "Bisrat",
         internalRef: "314510",
-        position: "manager"
+        position: "manager",
+        password: "password12345"
     });
     console.log("User seeded");
 
