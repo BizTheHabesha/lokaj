@@ -12,3 +12,11 @@ export function uuid() {
 		}
 	);
 }
+/**
+ * Splits a camelcase string into its componenets
+ * @param {string} str
+ * @returns {[string]}
+ */
+export function splitCamel(str) {
+	return str.split(/[A-Z]/);
+}
