@@ -50,7 +50,7 @@ const resolvers = {
             // else return the found ticket
             return foundUser;
         },
-    },
+    }, 
     // create update delete
     Mutation: {
         // create a new user
