@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import PageContent from "../../components/PageContent";
+import TicketModal from "../../components/TicketModal";
 import { HiOutlineBellAlert } from "react-icons/hi2";
 import { DateTime } from "luxon";
 import "./index.css";
@@ -19,12 +20,15 @@ import {
 	Heading,
 	Container,
 	SkeletonText,
+	useDisclosure,
 } from "@chakra-ui/react";
 import { uuid } from "../../utils/helpers";
 
 function CarLog(props) {
 	const griditembg = "papayawhip";
 	const scheme = props.defaultScheme;
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [ticket, setTicket] = useState();
 
 	return (
 		<PageContent active={1} defaultScheme={scheme}>
@@ -51,7 +55,7 @@ function CarLog(props) {
 					</Heading>
 					<TableContainer>
 						<Table variant="striped" colorScheme={scheme}>
-							<TableCaption>Overnight Valet</TableCaption>
+							<TableCaption>Overnight Parking</TableCaption>
 							<Thead>
 								<Tr>
 									<Th>Ticket</Th>
@@ -65,8 +69,25 @@ function CarLog(props) {
 									.fill()
 									.map((el) => {
 										return (
-											<Tr key={uuid()}>
-												<Td></Td>
+											<Tr
+												onClick={() => {
+													setTicket({
+														_id: "5e8848098100000100000001",
+														ticketId: "111000",
+														lastName: "Smith",
+														firstName: "Josh",
+														room: "111",
+														lastRunner: "Biz",
+														status: "In",
+														type: "OvernightValet",
+														damageCheck:
+															"01212022001",
+														checkIn: new Date(),
+													});
+													onOpen();
+												}}
+												key={uuid()}>
+												<Td>517441</Td>
 												<Td></Td>
 												<Td></Td>
 												<Td></Td>
@@ -179,6 +200,14 @@ function CarLog(props) {
 					</TableContainer>
 				</GridItem>
 			</Grid>
+
+			{isOpen ? (
+				<TicketModal
+					ticket={ticket}
+					isOpen={isOpen}
+					onClose={onClose}
+				/>
+			) : null}
 		</PageContent>
 	);
 }
