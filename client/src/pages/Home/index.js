@@ -88,12 +88,12 @@ function Home(props) {
 										</Stat>
 									</StatGroup>
 								</HStack>
+								<CardFooter>
+									<Button>
+										See in Search <BsArrowRight />
+									</Button>
+								</CardFooter>
 							</CardBody>
-							<CardFooter>
-								<Button>
-									See in Search <BsArrowRight />
-								</Button>
-							</CardFooter>
 						</Card>
 						<Card h="100%" w="20%">
 							<CardHeader>
@@ -135,12 +135,12 @@ function Home(props) {
 										</Stat>
 									</StatGroup>
 								</HStack>
+								<CardFooter>
+									<Button>
+										See in Search <BsArrowRight />
+									</Button>
+								</CardFooter>
 							</CardBody>
-							<CardFooter>
-								<Button>
-									See in Search <BsArrowRight />
-								</Button>
-							</CardFooter>
 						</Card>
 						<Card h="100%" w="20%">
 							<CardHeader>
@@ -182,12 +182,12 @@ function Home(props) {
 										</Stat>
 									</StatGroup>
 								</HStack>
+								<CardFooter>
+									<Button>
+										See in Search <BsArrowRight />
+									</Button>
+								</CardFooter>
 							</CardBody>
-							<CardFooter>
-								<Button>
-									See in Search <BsArrowRight />
-								</Button>
-							</CardFooter>
 						</Card>
 						<Card h="100%" w="20%">
 							<CardHeader>
@@ -229,10 +229,12 @@ function Home(props) {
 										</Stat>
 									</StatGroup>
 								</HStack>
+								<CardFooter>
+									<Button>
+										See in Search <BsArrowRight />
+									</Button>
+								</CardFooter>
 							</CardBody>
-							<CardFooter>
-								<Button>View here</Button>
-							</CardFooter>
 						</Card>
 						<Card h="100%" w="20%">
 							<CardHeader>
@@ -274,12 +276,12 @@ function Home(props) {
 										</Stat>
 									</StatGroup>
 								</HStack>
+								<CardFooter>
+									<Button>
+										See in Search <BsArrowRight />
+									</Button>
+								</CardFooter>
 							</CardBody>
-							<CardFooter>
-								<Button>
-									See in Search <BsArrowRight />
-								</Button>
-							</CardFooter>
 						</Card>
 					</HStack>
 					<Heading pt={2} pl={2} h="10%">
@@ -326,9 +328,11 @@ function Home(props) {
 										</Stat>
 									</StatGroup>
 								</HStack>
-								<Button>
-									See in Search <BsArrowRight />
-								</Button>
+								<CardFooter>
+									<Button>
+										See in Search <BsArrowRight />
+									</Button>
+								</CardFooter>
 							</CardBody>
 						</Card>
 						<Card h="100%" w="20%">
@@ -371,9 +375,11 @@ function Home(props) {
 										</Stat>
 									</StatGroup>
 								</HStack>
-								<Button>
-									See in Search <BsArrowRight />
-								</Button>
+								<CardFooter>
+									<Button>
+										See in Search <BsArrowRight />
+									</Button>
+								</CardFooter>
 							</CardBody>
 						</Card>
 						<Card h="100%" w="20%">
@@ -416,9 +422,11 @@ function Home(props) {
 										</Stat>
 									</StatGroup>
 								</HStack>
-								<Button>
-									See in Search <BsArrowRight />
-								</Button>
+								<CardFooter>
+									<Button>
+										See in Search <BsArrowRight />
+									</Button>
+								</CardFooter>
 							</CardBody>
 						</Card>
 						<Card h="100%" w="20%">
@@ -461,9 +469,11 @@ function Home(props) {
 										</Stat>
 									</StatGroup>
 								</HStack>
-								<Button>
-									See in Search <BsArrowRight />
-								</Button>
+								<CardFooter>
+									<Button>
+										See in Search <BsArrowRight />
+									</Button>
+								</CardFooter>
 							</CardBody>
 						</Card>
 						<Card h="100%" w="20%">
@@ -506,9 +516,11 @@ function Home(props) {
 										</Stat>
 									</StatGroup>
 								</HStack>
-								<Button>
-									See in Search <BsArrowRight />
-								</Button>
+								<CardFooter>
+									<Button>
+										See in Search <BsArrowRight />
+									</Button>
+								</CardFooter>
 							</CardBody>
 						</Card>
 					</HStack>
