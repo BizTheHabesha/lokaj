@@ -38,13 +38,13 @@ const typeDefs = gql `
 
     type Query {
        tickets: [Ticket]
-       ticket: Ticket
+       ticket(ticketId: String!): Ticket
        users: [User]
-       user: User
+       user(internalRef: String!): User
     }
 
     type Mutation {
-        addUser(username: String!, firstName: String!, lastName: String!, internalRef: String!, position: String!): Auth
+        addUser(username: String!, firstName: String!, lastName: String!, internalRef: String!, position: String!, password: String!): Auth
 
         addTicket(ticketId: String!, lastName: String!, firstName: String!, room: String!, checkIn: String!, checkOut: String!, 
             vehicleMake: String!, vehicleModel: String!, vehicleColor: String!, vehiclePlate: String!, vehicleLocation: String!,

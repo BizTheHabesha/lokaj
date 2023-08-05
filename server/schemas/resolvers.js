@@ -18,10 +18,12 @@ const resolvers = {
             return allTickets;
         },
         // get one ticket
-        ticket: async (parent, {_ticketId}) => {
+        ticket: async (parent, {ticketId}) => {
+            console.log(ticketId);
             // look for the ticket where the ticketId matches the request sent
-            const foundTicket = await Ticket.find({ticketId: _ticketId});
-
+            const foundTicket = await Ticket.findOne({ticketId: ticketId});
+            
+            console.log(foundTicket);
             // if there is no ticket found send "Ticket not found" message
             if(!foundTicket){return json({message: "Ticket not found"})}
 
@@ -40,9 +42,9 @@ const resolvers = {
             return allUsers;
         },
         // get one user
-        user: async (parent, {_internalRef}) => {
+        user: async (parent, {internalRef}) => {
             // look for the user where the internalRef matches the request sent
-            const foundUser = await User.find({internalRef: _internalRef});
+            const foundUser = await User.findOne({internalRef: internalRef});
 
             // if there is no user found send "User not found" message
             if(!foundUser){return json({message: "User not found"})}
@@ -57,13 +59,15 @@ const resolvers = {
         addUser: async (parent, req) => {
             // create a new user with the requested details
             const user = await User.create({
-                username: req.userName,
+                username: req.username,
                 lastName: req.lastName, 
                 firstName: req.firstName,
                 internalRef: req.internalRef, 
                 position: req.position,
-                password: password
+                password: req.password
             });
+
+            console.log(user);
 
             // sign token for the new user
             const token = signToken(user);
@@ -95,7 +99,7 @@ const resolvers = {
             // return the newly made ticket
             return newticket;
         },
-        // update a user's postion
+        // update a user's postion /////////
         updateUserPosition: async (parent, req) => {
             // check if the requested user exists
             const requestedUser = await User.findOne({internalRef: req.internalRef});

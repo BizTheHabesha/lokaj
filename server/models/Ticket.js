@@ -66,8 +66,8 @@ const ticketSchema = new Schema({
 		
 	},
 	damageCheck: {
-		type: Number,
-		required: true,
+		type: String,
+		// required: true,
 	},
 	comments: {
 		type: String,
