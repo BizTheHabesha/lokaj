@@ -63,11 +63,11 @@ const ticketSchema = new Schema({
 		validate: function (data){
 			return ["OvernightValet", "OvernightSelf", "DailyValet", "DailySelf"].includes(data);
 		},
-		
 	},
 	damageCheck: {
-		type: Number,
+		type: String,
 		required: true,
+		default: "0"
 	},
 	comments: {
 		type: String,

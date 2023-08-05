@@ -14,6 +14,8 @@ db.once("open", async() => {
         status: "In",
         type: "OvernightValet",
         damageCheck: "01212022001",
+        checkIn: new Date().setDate(new Date().getDate() + 2)
+
     });
     console.log("Tickets seeded");
 
@@ -26,7 +28,7 @@ db.once("open", async() => {
         firstName: "Bisrat",
         internalRef: "314510",
         position: "manager",
-        password: "password12345"
+        password: "password12345",
     });
     console.log("User seeded");
 
