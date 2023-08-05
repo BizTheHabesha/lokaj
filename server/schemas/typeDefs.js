@@ -18,7 +18,7 @@ const typeDefs = gql `
         status: String
         type: String
         damageCheck: String
-        comment: String
+        comments: String
     }
 
     type User {        
@@ -48,13 +48,13 @@ const typeDefs = gql `
 
         addTicket(ticketId: String!, lastName: String!, firstName: String!, room: String!, checkIn: String!, checkOut: String!, 
             vehicleMake: String!, vehicleModel: String!, vehicleColor: String!, vehiclePlate: String!, vehicleLocation: String!,
-            lastRunner: String!, status: String!, type: String!, damageCheck: String!, comment: String!): Ticket
+            lastRunner: String!, status: String!, type: String!, damageCheck: String!, comments: String!): Ticket
 
         updateUserPosition(internalRef: String!, position: String!): User
 
         updateTicket(ticketId: String!, lastName: String!, firstName: String!, room: String!, checkIn: String!, checkOut: String!, 
             vehicleMake: String!, vehicleModel: String!, vehicleColor: String!, vehiclePlate: String!, vehicleLocation: String!,
-            lastRunner: String!, status: String!, type: String!, damageCheck: String!, comment: String!): Ticket
+            lastRunner: String!, status: String!, type: String!, damageCheck: String!, comments: String!): Ticket
 
         login(username: String!, password: String!): Auth
     }

@@ -94,7 +94,7 @@ const resolvers = {
                 status: req.status,
                 type: req.type,
                 damageCheck: req.damageCheck,
-                comment: req.comment
+                comments: req.comments
             }); 
             // return the newly made ticket
             return newticket;
@@ -134,7 +134,7 @@ const resolvers = {
                 status: req.status,
                 type: req.type,
                 damageCheck: req.damageCheck,
-                comments: req.comment
+                comments: req.comments
             }); 
         },
         // login a user
