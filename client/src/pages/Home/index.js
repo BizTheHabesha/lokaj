@@ -17,37 +17,83 @@ import {
 	StatHelpText,
 	VStack,
 	Image,
-	Center,
 	useColorMode,
+	Skeleton,
+	IconButton,
+	Tooltip,
+	Text,
 } from "@chakra-ui/react";
 import { uuid } from "../../utils/helpers";
 import PageContent from "../../components/PageContent";
 import { DateTime } from "luxon";
-import { BsArrowRight, BsFillGearFill } from "react-icons/bs";
+import { BsArrowRight } from "react-icons/bs";
+import {
+	GrUserSettings,
+	GrSun,
+	GrMoon,
+	GrCloud,
+	GrDocumentUser,
+	GrConfigure,
+} from "react-icons/gr";
+import { color } from "framer-motion";
 
 function Home(props) {
-	const griditembg = "papayawhip";
 	const scheme = props.defaultScheme;
+	const { colorMode, toggleColorMode } = useColorMode();
+	const griditembg = colorMode === "light" ? "gray.100" : "gray.800";
+	const getUserPermission = () => {
+		// TODO: get user permission from server
+		return { serverManagement: false, userManagement: true };
+	};
+
 	return (
 		<PageContent defaultScheme={scheme} active={0}>
 			<Grid
-				pb={5}
+				mb={5}
 				templateRows="reapeat(3, 1fr)"
 				templateColumns="repeat(4, 1fr)"
 				gap={5}>
-				<GridItem rowSpan={3} colSpan={1} bg={griditembg}>
+				<GridItem
+					borderLeft={"5px solid gray"}
+					borderRadius={"2%"}
+					rowSpan={3}
+					colSpan={1}
+					bg={griditembg}>
 					<Heading pl={2} size={"lg"}>
 						Events
 					</Heading>
+					<Text pl={2} size={"sm"}>
+						@ Grand Hyatt Denver
+					</Text>
 					<VStack></VStack>
 				</GridItem>
-				<GridItem colSpan={3} rowSpan={1} bg={griditembg}>
-					<HStack>
-						<Image src="img/logo.svg" h="30rem" />
-						<Image src="img/ghdlogo.png" h="30rem" />
+				<GridItem
+					borderLeft={"5px solid gray"}
+					borderRadius={"2%"}
+					colSpan={3}
+					rowSpan={1}
+					bg={griditembg}>
+					<HStack display={"flex"} justifyContent={"center"}>
+						<Image
+							src="./img/logo.svg"
+							fallbackSrc="https://placehold.co/350x350"
+							h="30rem"
+						/>
+						<Heading px={10} size="2xl">
+							X
+						</Heading>
+						<Image
+							src="./img/ghdlogo.png"
+							fallbackSrc="https://placehold.co/350x350"
+							h="30rem"
+						/>
 					</HStack>
 				</GridItem>
-				<GridItem colSpan={3} bg={griditembg}>
+				<GridItem
+					borderLeft={"5px solid gray"}
+					borderRadius={"2%"}
+					colSpan={3}
+					bg={griditembg}>
 					<Heading pt={2} pl={2} size="lg">
 						Check Out Forecast
 					</Heading>
@@ -68,7 +114,12 @@ function Home(props) {
 										justifyContent={"space-between"}>
 										<Stat>
 											<StatLabel>Valet</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -76,7 +127,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Self</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -84,7 +140,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Daily</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -115,7 +176,12 @@ function Home(props) {
 										justifyContent={"space-between"}>
 										<Stat>
 											<StatLabel>Valet</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -123,7 +189,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Self</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -131,7 +202,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Daily</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -162,7 +238,12 @@ function Home(props) {
 										justifyContent={"space-between"}>
 										<Stat>
 											<StatLabel>Valet</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -170,7 +251,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Self</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -178,7 +264,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Daily</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -209,7 +300,12 @@ function Home(props) {
 										justifyContent={"space-between"}>
 										<Stat>
 											<StatLabel>Valet</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -217,7 +313,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Self</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -225,7 +326,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Daily</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -256,7 +362,12 @@ function Home(props) {
 										justifyContent={"space-between"}>
 										<Stat>
 											<StatLabel>Valet</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -264,7 +375,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Self</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -272,7 +388,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Daily</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -308,7 +429,12 @@ function Home(props) {
 										justifyContent={"space-between"}>
 										<Stat>
 											<StatLabel>Valet</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -316,7 +442,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Self</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -324,7 +455,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Daily</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -355,7 +491,12 @@ function Home(props) {
 										justifyContent={"space-between"}>
 										<Stat>
 											<StatLabel>Valet</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -363,7 +504,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Self</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -371,7 +517,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Daily</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -402,7 +553,12 @@ function Home(props) {
 										justifyContent={"space-between"}>
 										<Stat>
 											<StatLabel>Valet</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -410,7 +566,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Self</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -418,7 +579,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Daily</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -449,7 +615,12 @@ function Home(props) {
 										justifyContent={"space-between"}>
 										<Stat>
 											<StatLabel>Valet</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -457,7 +628,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Self</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -465,7 +641,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Daily</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -496,7 +677,12 @@ function Home(props) {
 										justifyContent={"space-between"}>
 										<Stat>
 											<StatLabel>Valet</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -504,7 +690,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Self</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -512,7 +703,12 @@ function Home(props) {
 										</Stat>
 										<Stat>
 											<StatLabel>Daily</StatLabel>
-											<StatNumber>60</StatNumber>
+											<StatNumber>
+												<Skeleton
+													h={"36px"}
+													w={"20%"}
+												/>
+											</StatNumber>
 											<StatHelpText>
 												<StatArrow type="increase" />
 												High
@@ -529,14 +725,71 @@ function Home(props) {
 						</Card>
 					</HStack>
 				</GridItem>
-				<GridItem colSpan={3} bg={griditembg} h="15em">
+				<GridItem colSpan={3}>
 					<Heading size="lg">Utilities</Heading>
+
 					<HStack h={"100%"} px={2}>
-						<Center w={"100%"} h={"100%"}>
-							<Button h={"100%"}>
-								<BsFillGearFill size={100} />
-							</Button>
-						</Center>
+						<Tooltip
+							label={
+								colorMode === "light"
+									? "Dark Mode"
+									: "Light Mode"
+							}>
+							<IconButton
+								colorScheme="gray"
+								onClick={toggleColorMode}
+								icon={
+									colorMode === "light" ? (
+										<GrMoon />
+									) : (
+										<GrSun />
+									)
+								}
+								size={"lg"}
+							/>
+						</Tooltip>
+						<Tooltip label="App Settings">
+							<IconButton
+								colorScheme="gray"
+								icon={<GrConfigure />}
+								size={"lg"}
+							/>
+						</Tooltip>
+						<Tooltip label="My Settings">
+							<IconButton
+								colorScheme="gray"
+								icon={<GrUserSettings />}
+								size={"lg"}
+							/>
+						</Tooltip>
+						<Tooltip
+							label={
+								getUserPermission().serverManagement
+									? "Server Management"
+									: "Higher Privillage Required"
+							}>
+							<IconButton
+								colorScheme="gray"
+								icon={<GrCloud />}
+								size={"lg"}
+								isDisabled={
+									!getUserPermission().serverManagement
+								}
+							/>
+						</Tooltip>
+						<Tooltip
+							label={
+								getUserPermission().userManagement
+									? "User Management"
+									: "Higher Privillage Required"
+							}>
+							<IconButton
+								colorScheme="gray"
+								icon={<GrDocumentUser />}
+								size={"lg"}
+								isDisabled={!getUserPermission().userManagement}
+							/>
+						</Tooltip>
 					</HStack>
 				</GridItem>
 			</Grid>

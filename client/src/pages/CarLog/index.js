@@ -21,14 +21,16 @@ import {
 	Container,
 	SkeletonText,
 	useDisclosure,
+	useColorMode,
 } from "@chakra-ui/react";
 import { uuid } from "../../utils/helpers";
 
 function CarLog(props) {
-	const griditembg = "papayawhip";
 	const scheme = props.defaultScheme;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [ticket, setTicket] = useState();
+	const { colorMode } = useColorMode();
+	const griditembg = colorMode === "light" ? "papayawhip" : "gray.800";
 
 	return (
 		<PageContent active={1} defaultScheme={scheme}>
