@@ -33,7 +33,7 @@ function Home(props) {
 			<Grid
 				pb={5}
 				templateRows="reapeat(3, 1fr)"
-				templateColumns="repeat(4, 3fr)"
+				templateColumns="repeat(4, 1fr)"
 				gap={5}>
 				<GridItem rowSpan={3} colSpan={1} bg={griditembg}>
 					<Heading pl={2} size={"lg"}>
