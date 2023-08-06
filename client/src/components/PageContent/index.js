@@ -1,4 +1,5 @@
 import { Center } from "@chakra-ui/react";
+import "./index.css";
 import React from "react";
 import Navbar from "../../pages/Navbar";
 
