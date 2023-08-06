@@ -4,9 +4,9 @@ import {
 	AiOutlineHome,
 	AiOutlineCar,
 	AiOutlineClockCircle,
+	AiOutlineSolution,
+	AiOutlineFile,
 } from "react-icons/ai";
-import { GrDocumentUser } from "react-icons/gr";
-import { HiOutlineDocumentReport } from "react-icons/hi";
 
 function Navbar(props) {
 	return (
@@ -31,12 +31,12 @@ function Navbar(props) {
 				</Tooltip>
 				<Tooltip label="Payroll">
 					<Tab px={1} as={"a"} href="/payroll">
-						<GrDocumentUser size={30} />
+						<AiOutlineSolution size={30} />
 					</Tab>
 				</Tooltip>
 				<Tooltip label="Reports">
 					<Tab px={1} as={"a"} href="/reports">
-						<HiOutlineDocumentReport size={30} />
+						<AiOutlineFile size={30} />
 					</Tab>
 				</Tooltip>
 				<Tooltip label="Time Clock">
