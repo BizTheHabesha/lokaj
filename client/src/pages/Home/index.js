@@ -17,11 +17,13 @@ import {
 	StatHelpText,
 	VStack,
 	Image,
+	Center,
+	useColorMode,
 } from "@chakra-ui/react";
 import { uuid } from "../../utils/helpers";
 import PageContent from "../../components/PageContent";
 import { DateTime } from "luxon";
-import { BsArrowRight } from "react-icons/bs";
+import { BsArrowRight, BsFillGearFill } from "react-icons/bs";
 
 function Home(props) {
 	const griditembg = "papayawhip";
@@ -29,22 +31,24 @@ function Home(props) {
 	return (
 		<PageContent defaultScheme={scheme} active={0}>
 			<Grid
-				h={"100vh"}
+				pb={5}
 				templateRows="reapeat(3, 1fr)"
 				templateColumns="repeat(4, 3fr)"
 				gap={5}>
 				<GridItem rowSpan={3} colSpan={1} bg={griditembg}>
-					<Heading pl={2}>Events</Heading>
+					<Heading pl={2} size={"lg"}>
+						Events
+					</Heading>
 					<VStack></VStack>
 				</GridItem>
 				<GridItem colSpan={3} rowSpan={1} bg={griditembg}>
 					<HStack>
-						<Image src="logo.svg" h="30rem" />
+						<Image src="img/logo.svg" h="30rem" />
 						<Image src="img/ghdlogo.png" h="30rem" />
 					</HStack>
 				</GridItem>
 				<GridItem colSpan={3} bg={griditembg}>
-					<Heading pt={2} pl={2} h="10%">
+					<Heading pt={2} pl={2} size="lg">
 						Check Out Forecast
 					</Heading>
 					<HStack px={2} h="40%">
@@ -284,7 +288,7 @@ function Home(props) {
 							</CardBody>
 						</Card>
 					</HStack>
-					<Heading pt={2} pl={2} h="10%">
+					<Heading pt={2} pl={2} size="lg">
 						Check In Forecast
 					</Heading>
 					<HStack px={2} pb={2} h="40%">
@@ -525,7 +529,16 @@ function Home(props) {
 						</Card>
 					</HStack>
 				</GridItem>
-				<GridItem colSpan={3} bg={griditembg}></GridItem>
+				<GridItem colSpan={3} bg={griditembg} h="15em">
+					<Heading size="lg">Utilities</Heading>
+					<HStack h={"100%"} px={2}>
+						<Center w={"100%"} h={"100%"}>
+							<Button h={"100%"}>
+								<BsFillGearFill size={100} />
+							</Button>
+						</Center>
+					</HStack>
+				</GridItem>
 			</Grid>
 		</PageContent>
 	);
