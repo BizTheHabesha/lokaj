@@ -10,6 +10,8 @@ import Reports from "./pages/Reports";
 import Clock from "./pages/Clock";
 import NotFound from "./pages/NotFound";
 import User from "./pages/User";
+import { useColorMode } from "@chakra-ui/react";
+import "./App.css";
 
 const client = new ApolloClient({
 	url: "/graphql",
