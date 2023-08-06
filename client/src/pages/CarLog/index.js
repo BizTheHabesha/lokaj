@@ -33,7 +33,6 @@ function CarLog(props) {
 	return (
 		<PageContent active={1} defaultScheme={scheme}>
 			<Grid
-				h="50vh"
 				templateRows="reapeat(3, 1fr)"
 				templateColumns="repeat(12, 1fr)"
 				gap={4}>
@@ -41,6 +40,8 @@ function CarLog(props) {
 				<GridItem rowSpan={1} colSpan={6} bg={griditembg}>
 					<Input
 						h={20}
+						fontSize={"xx-large"}
+						aria-placeholder="vehicle ticket number"
 						errorBorderColor="red.300"
 						className="car-log-ticket-input"
 						variant="outline"
@@ -82,14 +83,32 @@ function CarLog(props) {
 														type: "OvernightValet",
 														damageCheck:
 															"01212022001",
-														checkIn: new Date(),
+														checkIn:
+															new Date().getTime(),
+														checkOut:
+															new Date().setDate(
+																new Date().getDate() +
+																	2
+															),
+														vehicleMake: "Toyota",
+														vehicleModel:
+															"Highlander",
+														vehicleColor: "Silver",
+														vehiclePlate: "ALDJ00",
+														vehicleLocation: "X00",
+														lastRunner: "Biz",
+														status: "Out",
+														type: "OvernightValet",
+														damageCheck: "10100020",
+														comments:
+															"Use the included spoon to disengage the parking brake.",
 													});
 													onOpen();
 												}}
 												key={uuid()}>
-												<Td>517441</Td>
-												<Td></Td>
-												<Td></Td>
+												<Td>111000</Td>
+												<Td> Josh Smith </Td>
+												<Td>111</Td>
 												<Td></Td>
 											</Tr>
 										);
@@ -138,7 +157,7 @@ function CarLog(props) {
 					</Heading>
 					<TableContainer>
 						<Table variant="striped" colorScheme={scheme}>
-							<TableCaption>Overnight Self</TableCaption>
+							<TableCaption>Daily Parking</TableCaption>
 							<Thead>
 								<Tr>
 									<Th>Ticket</Th>
@@ -173,7 +192,7 @@ function CarLog(props) {
 							<Heading pl={1}>History</Heading>
 						</Container>
 						<Table variant="striped" colorScheme={scheme}>
-							<TableCaption>Dailies</TableCaption>
+							<TableCaption>History</TableCaption>
 							<Thead>
 								<Tr>
 									<Th>Ticket</Th>
