@@ -17,9 +17,10 @@ const client = new ApolloClient({
 	url: "/graphql",
 	cache: new InMemoryCache(),
 });
-const defaultScheme = "red";
 
 function App() {
+	const { colorMode } = useColorMode();
+	const defaultScheme = colorMode ? "red" : "gray";
 	return (
 		<ApolloProvider client>
 			<Router>
@@ -34,12 +35,30 @@ function App() {
 						path="/carlog"
 						element={<CarLog defaultScheme={defaultScheme} />}
 					/>
-					<Route path="/payroll" element={<Payroll />} />
-					<Route path="/reports" element={<Reports />} />
-					<Route path="/clock" element={<Clock />} />
-					<Route path="/tickets/:id" element={<Ticket />} />
-					<Route path="/users/:id" element={<User />} />
-					<Route path="*" element={<NotFound />} />
+					<Route
+						path="/payroll"
+						element={<Payroll defaultScheme={defaultScheme} />}
+					/>
+					<Route
+						path="/reports"
+						element={<Reports defaultScheme={defaultScheme} />}
+					/>
+					<Route
+						path="/clock"
+						element={<Clock defaultScheme={defaultScheme} />}
+					/>
+					<Route
+						path="/tickets/:id"
+						element={<Ticket defaultScheme={defaultScheme} />}
+					/>
+					<Route
+						path="/users/:id"
+						element={<User defaultScheme={defaultScheme} />}
+					/>
+					<Route
+						path="*"
+						element={<NotFound defaultScheme={defaultScheme} />}
+					/>
 				</Routes>
 			</Router>
 		</ApolloProvider>
