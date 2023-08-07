@@ -41,9 +41,7 @@ function Reports(props) {
 				templateColumns="repeat(24, 1fr)"
 				gap={4}>
 				<GridItem
-					className="reports-list"
-					border={"1px solid tomato"}
-					borderRadius={"10px"}
+					className="reports-list custom-scrollbar section-bordered"
 					rowSpan={2}
 					colSpan={5}>
 					<Heading p={5}>Reports</Heading>
@@ -214,11 +212,7 @@ function Reports(props) {
 					borderRadius={"10px"}
 					rowSpan={2}
 					colSpan={18}></GridItem>
-				<GridItem
-					border={"1px solid tomato"}
-					borderRadius={"10px"}
-					rowSpan={2}
-					colSpan={1}>
+				<GridItem className="section-bordered" rowSpan={2} colSpan={1}>
 					<VStack
 						p={4}
 						justifyContent={"space-between"}

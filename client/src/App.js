@@ -20,9 +20,9 @@ const client = new ApolloClient({
 
 function App() {
 	const { colorMode } = useColorMode();
-	const defaultScheme = colorMode === "light" ? "red" : "gray";
+	const defaultScheme = colorMode === "light" ? "red" : "red";
 	return (
-		<ApolloProvider client>
+		<ApolloProvider client={client}>
 			<Router>
 				<Routes>
 					<Route
