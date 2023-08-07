@@ -6,6 +6,7 @@ import {
 	AiOutlineClockCircle,
 	AiOutlineSolution,
 	AiOutlineFile,
+	AiOutlineLogout,
 } from "react-icons/ai";
 
 function Navbar(props) {
@@ -42,6 +43,11 @@ function Navbar(props) {
 				<Tooltip label="Time Clock">
 					<Tab px={1} as={"a"} href="/clock">
 						<AiOutlineClockCircle size={30} />
+					</Tab>
+				</Tooltip>
+				<Tooltip label="Logout">
+					<Tab px={1} as={"a"} href="/login">
+						<AiOutlineLogout size={30} />
 					</Tab>
 				</Tooltip>
 			</TabList>
