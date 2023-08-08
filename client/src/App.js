@@ -14,7 +14,7 @@ import { useColorMode } from "@chakra-ui/react";
 import "./App.css";
 
 const client = new ApolloClient({
-	url: "/graphql",
+	uri: "/graphql",
 	cache: new InMemoryCache(),
 });
 
@@ -30,7 +30,10 @@ function App() {
 						element={<Home defaultScheme={defaultScheme} />}
 					/>{" "}
 					{/* main menu */}
-					<Route path="/login" element={<Login />} />
+					<Route
+						path="/login"
+						element={<Login defaultScheme={defaultScheme} />}
+					/>
 					<Route
 						path="/carlog"
 						element={<CarLog defaultScheme={defaultScheme} />}
