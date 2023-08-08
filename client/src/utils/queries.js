@@ -73,7 +73,7 @@ export const QUERY_TICKET = gql`
 			status
 			type
 			damageCheck
-			comment
+			comments
 		}
 	}
 `;

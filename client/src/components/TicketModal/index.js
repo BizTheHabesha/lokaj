@@ -26,10 +26,24 @@ import {
 	Input,
 	Text,
 	HStack,
+	useToast,
 } from "@chakra-ui/react";
 import { uuid } from "../../utils/helpers";
+import { useMutation } from "@apollo/client";
+import { UPDATE_TICKET, ADD_TICKET } from "../../utils/mutations";
+import { DateTime } from "luxon";
 
 function TicketModal(props) {
+	const [updateTicket, { data, loading, error }] = useMutation(UPDATE_TICKET);
+
+	const [
+		addTicket,
+		{
+			loading: addTicketLoading,
+			error: addTicketError,
+			data: addTicketData,
+		},
+	] = useMutation(ADD_TICKET);
 	// use contextualized disclosure from parent
 	const { isOpen, onClose, ticket } = props;
 	// element to focus on save cancel
@@ -53,6 +67,8 @@ function TicketModal(props) {
 		onOpen: coOnOpen,
 	} = useDisclosure();
 
+	const toast = useToast();
+
 	const {
 		isOpen: reqIsOpen,
 		onClose: reqOnClose,
@@ -63,6 +79,11 @@ function TicketModal(props) {
 
 	// create state context for form data
 	const [formData, setFormData] = useState({ ...ticket });
+
+	// when modal is opened, set form data to ticket data
+	useEffect(() => {
+		setFormData({ ...ticket });
+	}, [ticket]);
 
 	// if changes made, alert user they aren't saved
 	const confirmSave = () => {
@@ -78,13 +99,63 @@ function TicketModal(props) {
 	};
 	// save the updated data
 	const doSave = async () => {
-		// await console.log("saved"); replace with api call
+		Object.keys(formData).forEach((key) => {
+			if (formData[key] === "") {
+				formData[key] = "None";
+			}
+			if (!formData[key]) {
+				formData[key] = "None";
+			}
+		});
+		console.log(ticket);
+		try {
+			const res = props.newTicket
+				? await updateTicket({
+						variables: {
+							...formData,
+							checkIn: convertToMillis(new Date().getTime()),
+							checkOut: convertToMillis(new Date().getTime()),
+							lastRunner: "Biz",
+							status: "In",
+						},
+				  })
+				: await addTicket({
+						variables: {
+							...formData,
+						},
+				  });
+			res
+				? toast({
+						title: "Success",
+						description: "Ticket updated successfully",
+						status: "success",
+						duration: 9000,
+						isClosable: true,
+				  })
+				: toast({
+						title: "Error",
+						description: "Ticket update failed",
+						status: "error",
+						duration: 9000,
+						isClosable: true,
+				  });
+		} catch (error) {
+			toast({
+				title: "Error",
+				description: error.message,
+				status: "error",
+				duration: 9000,
+				isClosable: true,
+			});
+		}
 		doContinue();
 	};
 	// when form input is changed, update form state
 	const handleInputChange = function (event, from) {
 		const newDat = {};
-		newDat[from] = event.target.value;
+		if (from === "checkIn" || from === "checkOut") {
+			newDat[from] = convertToMillis(event.target.value);
+		} else newDat[from] = event.target.value;
 		setFormData({ ...formData, ...newDat });
 		setChangesMade(true);
 	};
@@ -119,7 +190,17 @@ function TicketModal(props) {
 	 *
 	 * @param {Number} seconds integer number of seconds since epoch
 	 */
-	const convertDate = (seconds) => {};
+	const convertDate = (millis) => {
+		return DateTime.fromMillis(Number(millis)).toLocaleString(
+			DateTime.DATE
+		);
+	};
+
+	const convertToMillis = (date) => {
+		return DateTime.fromISO(date).toMillis();
+	};
+
+	const doCheckout = (ticketId) => {};
 
 	return props.ticket ? (
 		<>
@@ -127,7 +208,9 @@ function TicketModal(props) {
 				<ModalOverlay />
 				<ModalContent w="500px">
 					<ModalHeader onClick={onToggle}>
-						{ticket.ticketId}
+						{props.newTicket
+							? `New Ticket: ${ticket.ticketId}`
+							: ticket.ticketId}
 						<Collapse in={collapseIsOpen} animateOpacity>
 							<Heading as={"h6"} size={"xs"}>
 								Metadata
@@ -147,43 +230,69 @@ function TicketModal(props) {
 							<FormControl>
 								<FormLabel>Last Name</FormLabel>
 								<Input
-									value={formData.lastName}
+									value={
+										formData.lastName
+											? formData.lastName
+											: ""
+									}
 									onChange={(event) => {
 										handleInputChange(event, "lastName");
 									}}
 								/>
 								<FormLabel>First Name</FormLabel>
 								<Input
-									value={formData.firstName}
+									value={
+										formData.firstName
+											? formData.firstName
+											: ""
+									}
 									onChange={(event) => {
 										handleInputChange(event, "firstName");
 									}}
 								/>
 								<FormLabel>Check In Date</FormLabel>
 								<Input
-									value={formData.checkIn}
+									value={
+										formData.checkIn
+											? convertDate(formData.checkIn)
+											: ""
+									}
 									onChange={(event) => {
 										handleInputChange(event, "checkIn");
 									}}
+									variant={"filled"}
+									readOnly
 								/>
 								<FormLabel>Check Out Date</FormLabel>
 								<Input
-									value={formData.checkOut}
+									value={
+										formData.checkOut
+											? convertDate(formData.checkOut)
+											: ""
+									}
 									onChange={(event) => {
 										handleInputChange(event, "checkOut");
 									}}
+									variant={"filled"}
+									readOnly
 								/>
 								<FormLabel>Last Runner</FormLabel>
 								<Input
 									variant={"filled"}
-									value={formData.lastRunner}
+									value={
+										formData.lastRunner
+											? formData.lastRunner
+											: ""
+									}
 									isReadOnly
 									tabIndex={-1}
 								/>
 								<FormLabel>Status</FormLabel>
 								<Input
 									variant={"filled"}
-									value={formData.status}
+									value={
+										formData.status ? formData.status : ""
+									}
 									isReadOnly
 									tabIndex={-1}
 								/>
@@ -192,21 +301,29 @@ function TicketModal(props) {
 							<FormControl>
 								<FormLabel>Room</FormLabel>
 								<Input
-									value={formData.room}
+									value={formData.room ? formData.room : ""}
 									onChange={(event) => {
 										handleInputChange(event, "room");
 									}}
 								/>
 								<FormLabel>Vehicle Make</FormLabel>
 								<Input
-									value={formData.vehicleMake}
+									value={
+										formData.vehicleMake
+											? formData.vehicleMake
+											: ""
+									}
 									onChange={(event) => {
 										handleInputChange(event, "vehicleMake");
 									}}
 								/>
 								<FormLabel>Vehicle Model</FormLabel>
 								<Input
-									value={formData.vehicleModel}
+									value={
+										formData.vehicleModel
+											? formData.vehicleModel
+											: ""
+									}
 									onChange={(event) => {
 										handleInputChange(
 											event,
@@ -216,7 +333,11 @@ function TicketModal(props) {
 								/>
 								<FormLabel>Vehicle Color</FormLabel>
 								<Input
-									value={formData.vehicleColor}
+									value={
+										formData.vehicleColor
+											? formData.vehicleColor
+											: ""
+									}
 									onChange={(event) => {
 										handleInputChange(
 											event,
@@ -226,7 +347,11 @@ function TicketModal(props) {
 								/>
 								<FormLabel>Vehicle Plate</FormLabel>
 								<Input
-									value={formData.vehiclePlate}
+									value={
+										formData.vehiclePlate
+											? formData.vehiclePlate
+											: ""
+									}
 									onChange={(event) => {
 										handleInputChange(
 											event,
@@ -237,7 +362,11 @@ function TicketModal(props) {
 								<FormLabel>Vehicle Location</FormLabel>
 								<Select
 									placeholder="Select Location"
-									value={formData.vehicleLocation}
+									value={
+										formData.vehicleLocation
+											? formData.vehicleLocation
+											: ""
+									}
 									onChange={(event) => {
 										handleInputChange(
 											event,
@@ -355,9 +484,7 @@ function TicketModal(props) {
 				</AlertDialogOverlay>
 			</AlertDialog>
 		</>
-	) : (
-		<></>
-	);
+	) : null;
 }
 
 export default TicketModal;
