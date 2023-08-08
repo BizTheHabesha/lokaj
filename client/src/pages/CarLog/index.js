@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useQuery, useMutation } from "@apollo/client";
+import { QUERY_TICKETS } from "../../utils/queries";
 import PageContent from "../../components/PageContent";
 import TicketModal from "../../components/TicketModal";
 import { HiOutlineBellAlert } from "react-icons/hi2";
@@ -22,15 +25,66 @@ import {
 	SkeletonText,
 	useDisclosure,
 	useColorMode,
+	Skeleton,
+	useToast,
+	Alert,
+	AlertIcon,
+	AlertTitle,
+	AlertDescription,
 } from "@chakra-ui/react";
 import { uuid } from "../../utils/helpers";
 
 function CarLog(props) {
-	const scheme = props.defaultScheme;
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { loading, error, data } = useQuery(QUERY_TICKETS);
+	const {
+		isOpen: isOpenTicketModal,
+		onOpen: onOpenTicketModal,
+		onClose: onCloseTicketModal,
+	} = useDisclosure();
 	const [ticket, setTicket] = useState();
 	const { colorMode } = useColorMode();
+
+	const scheme = props.defaultScheme;
 	const griditembg = colorMode === "light" ? "papayawhip" : "gray.800";
+
+	const tickets = data?.tickets || [];
+
+	const toast = useToast();
+	console.log(data);
+	console.log(error);
+	console.log(loading);
+
+	useEffect(() => {
+		const id = uuid();
+		const interval = setInterval(() => {
+			if (loading && !toast.isActive(id)) {
+				toast({
+					id,
+					title: "Struggling to fetch data",
+					status: "error",
+					position: "bottom",
+					duration: 10000,
+					isClosable: false,
+				});
+			} else if (!loading) {
+				clearInterval(interval);
+				toast.closeAll();
+				toast({
+					title: "Data loaded",
+					status: "success",
+					position: "bottom",
+					variant: "left-accent",
+				});
+			}
+		}, 1000);
+		return () => clearInterval(interval);
+	}, [loading, toast]);
+
+	const handleTicket = (ticketId) => {
+		const ticket = useQuery(QUERY_TICKET, {
+			variables: { ticketId },
+		});
+	};
 
 	return (
 		<PageContent active={1} defaultScheme={scheme}>
@@ -50,7 +104,7 @@ function CarLog(props) {
 						placeholder="Ticket #"
 					/>
 				</GridItem>
-				<GridItem rowSpan={1} colSpan={3} />
+				<GridItem rowSpan={1} colSpan={3}></GridItem>
 
 				<GridItem rowSpan={2} colSpan={4} bg={griditembg}>
 					<Heading pl={1} alignSelf={"center"}>
@@ -68,53 +122,62 @@ function CarLog(props) {
 								</Tr>
 							</Thead>
 							<Tbody>
-								{Array(10)
-									.fill()
-									.map((el) => {
-										return (
-											<Tr
-												onClick={() => {
-													setTicket({
-														_id: "5e8848098100000100000001",
-														ticketId: "111000",
-														lastName: "Smith",
-														firstName: "Josh",
-														room: "111",
-														lastRunner: "Biz",
-														status: "In",
-														type: "OvernightValet",
-														damageCheck:
-															"01212022001",
-														checkIn:
-															new Date().getTime(),
-														checkOut:
-															new Date().setDate(
-																new Date().getDate() +
-																	2
-															),
-														vehicleMake: "Toyota",
-														vehicleModel:
-															"Highlander",
-														vehicleColor: "Silver",
-														vehiclePlate: "ALDJ00",
-														vehicleLocation: "X00",
-														lastRunner: "Biz",
-														status: "Out",
-														type: "OvernightValet",
-														damageCheck: "10100020",
-														comments:
-															"Use the included spoon to disengage the parking brake.",
-													});
-													onOpen();
-												}}
-												key={uuid()}>
-												<Td>111000</Td>
-												<Td> Josh Smith </Td>
-												<Td>111</Td>
-												<Td></Td>
-											</Tr>
-										);
-									})}
+								{loading
+									? Array(10)
+											.fill()
+											.map((el) => {
+												return (
+													<Tr key={uuid()}>
+														<Td>
+															<Skeleton>
+																111000
+															</Skeleton>
+														</Td>
+														<Td>
+															{" "}
+															<Skeleton>
+																Firstname{" "}
+																Lastname
+															</Skeleton>
+														</Td>
+														<Td>
+															<Skeleton>
+																111
+															</Skeleton>
+														</Td>
+														<Td>
+															<Skeleton>
+																{DateTime.fromMillis(
+																	new Date().setDate(
+																		new Date().getDate() +
+																			2
+																	)
+																).toLocaleString(
+																	DateTime.DATE_SHORT
+																)}
+															</Skeleton>
+														</Td>
+													</Tr>
+												);
+											})
+									: tickets.map((ticket) => {
+											return (
+												<Tr
+													key={ticket.ticketId}
+													onClick={() => {
+														setTicket(ticket);
+														onOpenTicketModal();
+													}}>
+													<Td>{ticket.ticketId}</Td>
+													<Td>
+														{ticket.lastName},{" "}
+														{ticket.firstName}
+													</Td>
+													<Td>{ticket.room}</Td>
+													<Td>{ticket.checkOut}</Td>
+												</Tr>
+											);
+									  })}
 							</Tbody>
 						</Table>
 					</TableContainer>
@@ -128,7 +191,7 @@ function CarLog(props) {
 							<Heading pl={1}>Requests</Heading>
 						</Container>
 						<Table variant="striped" colorScheme={scheme}>
-							<TableCaption>Dailies</TableCaption>
+							<TableCaption>Requests</TableCaption>
 							<Thead>
 								<Tr>
 									<Th>Status</Th>
@@ -142,9 +205,18 @@ function CarLog(props) {
 									.map((el) => {
 										return (
 											<Tr key={uuid()}>
-												<Td></Td>
-												<Td></Td>
-												<Td></Td>
+												<Td>
+													<Skeleton>111000</Skeleton>
+												</Td>
+												<Td>
+													{" "}
+													<Skeleton>
+														Josh Smith
+													</Skeleton>{" "}
+												</Td>
+												<Td>
+													<Skeleton>111</Skeleton>
+												</Td>
 											</Tr>
 										);
 									})}
@@ -174,10 +246,30 @@ function CarLog(props) {
 									.map((el) => {
 										return (
 											<Tr key={uuid()}>
-												<Td></Td>
-												<Td></Td>
-												<Td></Td>
-												<Td></Td>
+												<Td>
+													<Skeleton>111000</Skeleton>
+												</Td>
+												<Td>
+													{" "}
+													<Skeleton>
+														Josh Smith
+													</Skeleton>{" "}
+												</Td>
+												<Td>
+													<Skeleton>111</Skeleton>
+												</Td>
+												<Td>
+													<Skeleton>
+														{DateTime.fromMillis(
+															new Date().setDate(
+																new Date().getDate() +
+																	2
+															)
+														).toLocaleString(
+															DateTime.DATE_SHORT
+														)}
+													</Skeleton>
+												</Td>
 											</Tr>
 										);
 									})}
@@ -209,10 +301,30 @@ function CarLog(props) {
 									.map((el) => {
 										return (
 											<Tr key={uuid()}>
-												<Td></Td>
-												<Td></Td>
-												<Td></Td>
-												<Td></Td>
+												<Td>
+													<Skeleton>111000</Skeleton>
+												</Td>
+												<Td>
+													{" "}
+													<Skeleton>
+														Josh Smith
+													</Skeleton>{" "}
+												</Td>
+												<Td>
+													<Skeleton>111</Skeleton>
+												</Td>
+												<Td>
+													<Skeleton>
+														{DateTime.fromMillis(
+															new Date().setDate(
+																new Date().getDate() +
+																	2
+															)
+														).toLocaleString(
+															DateTime.DATE_SHORT
+														)}
+													</Skeleton>
+												</Td>
 											</Tr>
 										);
 									})}
@@ -222,11 +334,11 @@ function CarLog(props) {
 				</GridItem>
 			</Grid>
 
-			{isOpen ? (
+			{isOpenTicketModal ? (
 				<TicketModal
 					ticket={ticket}
-					isOpen={isOpen}
-					onClose={onClose}
+					isOpen={isOpenTicketModal}
+					onClose={onCloseTicketModal}
 				/>
 			) : null}
 		</PageContent>

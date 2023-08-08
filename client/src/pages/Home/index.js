@@ -54,8 +54,7 @@ function Home(props) {
 				templateColumns="repeat(4, 1fr)"
 				gap={5}>
 				<GridItem
-					borderLeft={"5px solid gray"}
-					borderRadius={"2%"}
+					className="section-bordered-subtle"
 					rowSpan={3}
 					colSpan={1}
 					bg={griditembg}>
@@ -68,8 +67,7 @@ function Home(props) {
 					<VStack></VStack>
 				</GridItem>
 				<GridItem
-					borderLeft={"5px solid gray"}
-					borderRadius={"2%"}
+					className="section-bordered-subtle"
 					colSpan={3}
 					rowSpan={1}
 					bg={griditembg}>
@@ -90,8 +88,7 @@ function Home(props) {
 					</HStack>
 				</GridItem>
 				<GridItem
-					borderLeft={"5px solid gray"}
-					borderRadius={"2%"}
+					className="section-bordered-subtle"
 					colSpan={3}
 					bg={griditembg}>
 					<Heading pt={2} pl={2} size="lg">
