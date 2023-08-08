@@ -16,3 +16,7 @@
 	border: 2px solid tomato;
 	border-radius: 10px;
 }
+.section-bordered-subtle {
+	border-radius: 2%;
+	border-left: 2px solid tomato;
+}
