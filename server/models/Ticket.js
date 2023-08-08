@@ -60,19 +60,24 @@ const ticketSchema = new Schema({
 	type: {
 		type: String,
 		required: true,
-		validate: function (data){
-			return ["OvernightValet", "OvernightSelf", "DailyValet", "DailySelf"].includes(data);
+		validate: function (data) {
+			return [
+				"OvernightValet",
+				"OvernightSelf",
+				"DailyValet",
+				"DailySelf",
+			].includes(data);
 		},
 	},
 	damageCheck: {
 		type: String,
 		required: true,
-		default: "0"
+		default: "0",
 	},
 	comments: {
 		type: String,
-		default: "None"
-	}
+		default: "None",
+	},
 });
 
 const Ticket = model("Ticket", ticketSchema);
