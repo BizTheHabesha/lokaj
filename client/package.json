@@ -5,7 +5,6 @@
 	"main": "index.js",
 	"author": "BizTheHabesha and JosephTeklu",
 	"license": "ISC",
-	"homepage": "https://BizTheHabesha.github.io/lokaj",
 	"proxy": "http://localhost:3001",
 	"dependencies": {
 		"@apollo/client": "^3.5.8",
