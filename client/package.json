@@ -6,6 +6,7 @@
 	"author": "BizTheHabesha and JosephTeklu",
 	"license": "ISC",
 	"proxy": "http://localhost:3001",
+	"homepage": "https://lokaj-26931e88545d.herokuapp.com/",
 	"dependencies": {
 		"@apollo/client": "^3.5.8",
 		"@chakra-ui/react": "^2.8.0",
