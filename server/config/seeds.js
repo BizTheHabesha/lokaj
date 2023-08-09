@@ -1,6 +1,6 @@
 const db = require("./connection");
 const { Ticket, User } = require("../models");
-const seedData = require("./.temp/astable.json");
+const seedData = require("./astable.json");
 
 db.once("open", async () => {
 	// delete previous data in db
