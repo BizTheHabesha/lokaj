@@ -109,19 +109,19 @@ function TicketModal(props) {
 		});
 		console.log(ticket);
 		try {
-			const res = props.newTicket
+			const res = !props.newTicket
 				? await updateTicket({
+						variables: {
+							...formData,
+						},
+				  })
+				: await addTicket({
 						variables: {
 							...formData,
 							checkIn: convertToMillis(new Date().getTime()),
 							checkOut: convertToMillis(new Date().getTime()),
 							lastRunner: "Biz",
 							status: "In",
-						},
-				  })
-				: await addTicket({
-						variables: {
-							...formData,
 						},
 				  });
 			res
