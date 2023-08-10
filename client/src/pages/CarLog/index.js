@@ -154,6 +154,8 @@ function CarLog(props) {
 	};
 
 	const convertDate = (millis) => {
+		console.log(`millis: ${millis}`);
+		return millis;
 		return DateTime.fromMillis(Number(millis)).toLocaleString(
 			DateTime.DATE_MED
 		);

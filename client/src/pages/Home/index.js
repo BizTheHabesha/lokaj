@@ -73,7 +73,7 @@ function Home(props) {
 					bg={griditembg}>
 					<HStack display={"flex"} justifyContent={"center"}>
 						<Image
-							src="./img/logo.svg"
+							src="./logo.svg"
 							fallbackSrc="https://placehold.co/350x350"
 							h="30rem"
 						/>
@@ -83,7 +83,7 @@ function Home(props) {
 						<Image
 							src="./img/ghdlogo.png"
 							fallbackSrc="https://placehold.co/350x350"
-							h="30rem"
+							h="10rem"
 						/>
 					</HStack>
 				</GridItem>

@@ -25,6 +25,7 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineUser } from "react-icons/ai";
 import { LuRocket } from "react-icons/lu";
+import { DateTime } from "luxon";
 
 function Payroll(props) {
 	const griditembg = "papayawhip";
@@ -141,7 +142,7 @@ function Payroll(props) {
 														Next Scheduled
 													</Heading>
 													<Text pt="2" fontSize="sm">
-														{new Date() + 1}
+														{res.nex}
 													</Text>
 												</Box>
 											</Stack>
@@ -168,7 +169,13 @@ function Payroll(props) {
 									</Thead>
 									<Tbody>
 										<Tr>
-											<Td>{res.timeIn}</Td>
+											<Td>
+												{DateTime.fromMillis(
+													Number(res.timeIn)
+												).toFormat(
+													DateTime.DATETIME_FULL_WITH_SECONDS
+												)}
+											</Td>
 											<Td>{res.timeOut}</Td>
 											<Td>{res.timeOut - res.timeIn}</Td>
 										</Tr>

@@ -19,12 +19,12 @@ const ticketSchema = new Schema({
 		default: "FLYER",
 	},
 	checkIn: {
-		type: Date,
-		default: new Date(),
+		type: String,
+		default: `${new Date().getTime()}`,
 	},
 	checkOut: {
-		type: Date,
-		default: new Date().setDate(new Date().getDate() + 2),
+		type: String,
+		default: `${new Date().getTime()}`,
 	},
 	vehicleMake: {
 		type: String,
