@@ -28,8 +28,7 @@ function App() {
 					<Route
 						path="/"
 						element={<Home defaultScheme={defaultScheme} />}
-					/>{" "}
-					{/* main menu */}
+					/>
 					<Route
 						path="/login"
 						element={<Login defaultScheme={defaultScheme} />}
