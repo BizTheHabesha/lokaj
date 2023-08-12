@@ -41,14 +41,54 @@ db.once("open", async () => {
 	await User.deleteMany();
 	// setup a user seed
 	await User.create({
+		username: "admin",
+		lastName: "Admin",
+		firstName: "Admin",
+		internalRef: "@000000",
+		position: "admin",
+		password: "admin12345",
+	});
+	await User.create({
+		username: "nheitmann",
+		lastName: "Heitmann",
+		firstName: "Neal",
+		internalRef: "@214510",
+		position: "fmanager",
+		password: "password12345",
+	});
+	await User.create({
+		username: "hmamora",
+		lastName: "Mamora",
+		firstName: "Habel",
+		internalRef: "@225410",
+		position: "fmanager",
+		password: "password12345",
+	});
+	await User.create({
+		username: "jossicakes",
+		lastName: "Teklu",
+		firstName: "Jossi",
+		internalRef: "514510",
+		position: "supervisor",
+		password: "password12345",
+	});
+	await User.create({
+		username: "asanchez",
+		lastName: "Sanchez",
+		firstName: "Aaron",
+		internalRef: "325520",
+		position: "supervisor",
+		password: "password12345",
+	});
+	await User.create({
 		username: "Biz",
 		lastName: "Gebrekidan",
 		firstName: "Bisrat",
 		internalRef: "314510",
-		position: "manager",
+		position: "runner",
 		password: "password12345",
 	});
-	console.log("User seeded");
+	console.log("Users seeded");
 
 	process.exit();
 });

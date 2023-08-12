@@ -43,7 +43,11 @@ function Home(props) {
 	const griditembg = colorMode === "light" ? "gray.100" : "gray.800";
 	const getUserPermission = () => {
 		// TODO: get user permission from server
-		return { serverManagement: false, userManagement: true };
+		return {
+			serverManagement: false,
+			userManagement: true,
+			position: "afmanager",
+		};
 	};
 
 	return (
@@ -787,6 +791,9 @@ function Home(props) {
 								isDisabled={!getUserPermission().userManagement}
 							/>
 						</Tooltip>
+						<Text>
+							{`Logged in as: ${'""'} (${getUserPermission().position.toUpperCase()})`}
+						</Text>
 					</HStack>
 				</GridItem>
 			</Grid>
