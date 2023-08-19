@@ -6,6 +6,7 @@ import { ADD_TICKET } from "../../utils/mutations";
 import PageContent from "../../components/PageContent";
 import TicketModal from "../../components/TicketModal";
 import { HiOutlineBellAlert } from "react-icons/hi2";
+import { GrCloud } from "react-icons/gr";
 import { DateTime } from "luxon";
 import "./index.css";
 import {
@@ -69,8 +70,10 @@ function CarLog(props) {
 	const toast = useToast();
 
 	useEffect(() => {
+		let errCount = 0;
 		const noDataId = uuid();
 		const errorId = uuid();
+		const tooManyId = uuid();
 		const interval = setInterval(() => {
 			if (allTicketserror && !toast.isActive(errorId)) {
 				toast({
@@ -101,12 +104,26 @@ function CarLog(props) {
 					variant: "left-accent",
 				});
 			} else {
-				toast.closeAll();
-				toast({
-					title: "Something went wrong...",
-					status: "error",
-					position: "bottom",
-				});
+				toast.close(noDataId);
+
+				if (errCount < 5)
+					toast({
+						title: `${allTicketserror.message}`,
+						status: "error",
+						position: "bottom",
+					});
+				else {
+					if (!toast.isActive(tooManyId))
+						toast({
+							id: tooManyId,
+							icon: <GrCloud />,
+							title: "Too many errors. Try refreshing the page. Contact a supervisor or server manager if the error continues!",
+							status: "error",
+							position: "bottom",
+							isClosable: false,
+						});
+				}
+				errCount++;
 			}
 		}, 1000);
 		return () => clearInterval(interval);
@@ -207,12 +224,14 @@ function CarLog(props) {
 								</Tr>
 							</Thead>
 							<Tbody>
-								{allTicketsloading
+								{allTicketsloading || allTicketserror
 									? Array(10)
 											.fill()
 											.map((el) => {
 												return (
-													<Tr key={uuid()}>
+													<Tr
+														key={uuid()}
+														className="carlog-table-row">
 														<Td>
 															<Skeleton>
 																111000
@@ -255,7 +274,8 @@ function CarLog(props) {
 													onClick={() => {
 														setTicket(ticket);
 														onOpenTicketModal();
-													}}>
+													}}
+													className="carlog-table-row">
 													<Td>{ticket.ticketId}</Td>
 													<Td>
 														{ticket.lastName},{" "}
@@ -340,7 +360,7 @@ function CarLog(props) {
 								</Tr>
 							</Thead>
 							<Tbody>
-								{allTicketsloading
+								{allTicketsloading || allTicketserror
 									? Array(10)
 											.fill()
 											.map((el) => {
