@@ -1,63 +1,110 @@
 const { gql } = require("apollo-server-express");
 
-const typeDefs = gql `
-    type Ticket {
-        _id: ID
-        ticketId: String
-        lastName: String
-        firstName: String
-        room: String
-        checkIn: String
-        checkOut: String
-        vehicleMake: String
-        vehicleModel: String
-        vehicleColor: String
-        vehiclePlate: String
-        vehicleLocation: String
-        lastRunner: String
-        status: String
-        type: String
-        damageCheck: String
-        comments: String
-    }
+const typeDefs = gql`
+	type Loc {
+		_id: ID
+		fullName: String
+		shortName: String
+		codeName: String
+		code: String
+	}
 
-    type User {        
-        _id: ID
-        username: String
-        lastName: String
-        firstName: String
-        internalRef: String
-        position: String
-        password: String
-    }
-    
-    type Auth {
-        token: ID
-        user: User
-    }
+	type Ticket {
+		_id: ID
+		ticketId: String
+		lastName: String
+		firstName: String
+		room: String
+		checkIn: String
+		checkOut: String
+		vehicleMake: String
+		vehicleModel: String
+		vehicleColor: String
+		vehiclePlate: String
+		vehicleLocation: String
+		lastRunner: String
+		status: String
+		type: String
+		damageCheck: String
+		comments: String
+	}
 
-    type Query {
-       tickets: [Ticket]
-       ticket(ticketId: String!): Ticket
-       users: [User]
-       user(internalRef: String!): User
-    }
+	type User {
+		_id: ID
+		username: String
+		lastName: String
+		firstName: String
+		internalRef: String
+		position: String
+		password: String
+	}
 
-    type Mutation {
-        addUser(username: String!, firstName: String!, lastName: String!, internalRef: String!, position: String!, password: String!): Auth
+	type Auth {
+		token: ID
+		user: User
+	}
 
-        addTicket(ticketId: String!, lastName: String!, firstName: String!, room: String!, checkIn: String!, checkOut: String!, 
-            vehicleMake: String!, vehicleModel: String!, vehicleColor: String!, vehiclePlate: String!, vehicleLocation: String!,
-            lastRunner: String!, status: String!, type: String!, damageCheck: String!, comments: String!): Ticket
+	type Query {
+		tickets: [Ticket]
+		ticket(ticketId: String!): Ticket
+		users: [User]
+		user(internalRef: String!): User
+		locs: [Loc]
+		loc(code: String!): Loc
+	}
 
-        updateUserPosition(internalRef: String!, position: String!): User
+	type Mutation {
+		addUser(
+			username: String!
+			firstName: String!
+			lastName: String!
+			internalRef: String!
+			position: String!
+			password: String!
+		): Auth
 
-        updateTicket(ticketId: String!, lastName: String!, firstName: String!, room: String!, checkIn: String!, checkOut: String!, 
-            vehicleMake: String!, vehicleModel: String!, vehicleColor: String!, vehiclePlate: String!, vehicleLocation: String!,
-            lastRunner: String!, status: String!, type: String!, damageCheck: String!, comments: String!): Ticket
+		addTicket(
+			ticketId: String!
+			lastName: String!
+			firstName: String!
+			room: String!
+			checkIn: String!
+			checkOut: String!
+			vehicleMake: String!
+			vehicleModel: String!
+			vehicleColor: String!
+			vehiclePlate: String!
+			vehicleLocation: String!
+			lastRunner: String!
+			status: String!
+			type: String!
+			damageCheck: String!
+			comments: String!
+		): Ticket
 
-        login(username: String!, password: String!): Auth
-    }
+		updateUserPosition(internalRef: String!, position: String!): User
+
+		updateTicket(
+			ticketId: String!
+			lastName: String!
+			firstName: String!
+			room: String!
+			checkIn: String!
+			checkOut: String!
+			vehicleMake: String!
+			vehicleModel: String!
+			vehicleColor: String!
+			vehiclePlate: String!
+			vehicleLocation: String!
+			lastRunner: String!
+			status: String!
+			type: String!
+			damageCheck: String!
+			comments: String!
+		): Ticket
+
+		login(username: String!, password: String!): Auth
+	}
 `;
 
 module.exports = typeDefs;
