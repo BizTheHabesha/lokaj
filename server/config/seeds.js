@@ -1,5 +1,5 @@
 const db = require("./connection");
-const { Ticket, User } = require("../models");
+const { Ticket, User, Loc } = require("../models");
 const seedData = require("./astable.json");
 
 db.once("open", async () => {
@@ -90,5 +90,15 @@ db.once("open", async () => {
 	});
 	console.log("Users seeded");
 
+	// delete previous locations from db
+	await Loc.deleteMany();
+	// add a single location
+	await Loc.create({
+		fullName: "Grand Hyatt Denver",
+		shortName: "Grand Hyatt",
+		codeName: "GHD",
+		code: "080311GH",
+	});
+	console.log("Locations seeded");
 	process.exit();
 });

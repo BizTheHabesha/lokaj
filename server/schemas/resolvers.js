@@ -1,5 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { Ticket, User } = require("../models");
+const { Ticket, User, Loc } = require("../models");
 const { signToken } = require("../utils/auth");
 // stripe //
 
@@ -59,6 +59,16 @@ const resolvers = {
 
 			// else return the found ticket
 			return foundUser;
+		},
+		locs: async () => {
+			const allLocs = await Loc.find();
+			if (!allLocs) {
+				return JSON.stringify({
+					message:
+						"No location. This setup is invalid. Contact your supervisor, manager, or network manager.",
+				});
+			}
+			return allLocs;
 		},
 	},
 	// create update delete
