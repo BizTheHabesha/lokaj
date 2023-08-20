@@ -5,7 +5,7 @@ const secret = "mysecretssh";
 const expiration = "2h";
 
 module.exports = {
-    autthMiddleware: function ({ req }){
+    authMiddleware: function ({ req }){
         // setup token by either the request body query or headers
         let token = req.body.token || req.query.token || req.headers.authorization;
         // if the token is made through the header fix the string
