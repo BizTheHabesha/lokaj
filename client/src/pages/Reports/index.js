@@ -28,6 +28,7 @@ import {
 	BsGear,
 	BsClipboard2Plus,
 	BsStar,
+	BsPencil,
 } from "react-icons/bs";
 
 function Reports(props) {
@@ -205,6 +206,11 @@ function Reports(props) {
 									/>
 								</GridItem>
 							</Grid>
+							<Tooltip label="Not Implemented">
+								<Button isDisabled mt={5} w={"100%"}>
+									<BsPencil />
+								</Button>
+							</Tooltip>
 						</VStack>
 					</Container>
 				</GridItem>
