@@ -94,7 +94,7 @@ function Payroll(props) {
 											? "Clocked In"
 											: ""
 									}>
-									<Card>
+									<Card w={"80%"}>
 										<CardHeader>
 											<HStack>
 												<Heading size="md">
