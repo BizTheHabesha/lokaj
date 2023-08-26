@@ -71,9 +71,9 @@ function CarLog(props) {
 
 	useEffect(() => {
 		let errCount = 0;
-		const noDataId = uuid();
-		const errorId = uuid();
-		const tooManyId = uuid();
+		const noDataId = 1;
+		const errorId = 2;
+		const tooManyId = 3;
 		const interval = setInterval(() => {
 			if (allTicketserror && !toast.isActive(errorId)) {
 				toast({
