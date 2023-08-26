@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useMutation } from "@apollo/client";
 import {
 	Box,
 	Button,
@@ -14,10 +15,82 @@ import {
 	Stack,
 	Text,
 	Image,
+	useToast,
 } from "@chakra-ui/react";
 import PageContent from "../../components/PageContent";
+import auth from "../../utils/auth";
+import { LOGIN } from "../../utils/mutations";
+import { uuid } from "../../utils/helpers";
 
 function Login() {
+	// const {data} = await loginUser({
+	//     variables: {...userFormData}
+	//   })
+	const [formData, setFormData] = useState({ username: "", password: "" });
+	const [loginUser, { loading, error, data }] = useMutation(LOGIN);
+	const toast = useToast();
+	const loadingToastId = 1;
+	const errorToastId = 2;
+	const successToastId = 3;
+
+	useEffect(() => {
+		const token = auth.getToken();
+		loading && !toast.isActive(loadingToastId)
+			? toast({
+					id: loadingToastId,
+					title: "Logging in",
+					description: "Please wait while we log you in.",
+					status: "info",
+					duration: 5000,
+					isClosable: true,
+			  })
+			: toast.close(loadingToastId);
+		token
+			? toast({
+					id: successToastId,
+					title: "Already logged in",
+					description: "You are already logged in.",
+					status: "info",
+					duration: 5000,
+					isClosable: true,
+			  })
+			: null;
+	});
+	/**
+	 *
+	 * @param {Event} event
+	 */
+	const handleFormSubmit = async function (event) {
+		event.preventDefault();
+		await loginUser({
+			variables: { ...formData },
+		});
+		auth.login(data?.login?.token);
+		let foundToken = !!auth.getToken();
+		foundToken && toast.isActive(errorToastId)
+			? toast({
+					id: errorToastId,
+					title: "Successful token",
+					description: "You have a token.",
+					status: "success",
+					duration: 5000,
+			  })
+			: null;
+		toast.close(loadingToastId);
+		return !error && foundToken
+			? (toast({
+					title: "Logged in",
+					description: "You are now logged in.",
+					status: "success",
+			  }),
+			  console.log(foundToken))
+			: toast({
+					title: "Error",
+					description: "There was an error logging in.",
+					status: "error",
+			  });
+	};
+
 	return (
 		<PageContent nonav>
 			<Container
@@ -45,29 +118,50 @@ function Login() {
 						bg={{ base: "transparent", sm: "bg.surface" }}
 						boxShadow={{ base: "none", sm: "md" }}
 						borderRadius={{ base: "none", sm: "xl" }}>
-						<Stack spacing="6">
-							<Stack spacing="5">
-								<FormControl>
-									<FormLabel htmlFor="username">
-										Username
-									</FormLabel>
-									<Input id="username" />
-									<FormLabel htmlFor="password">
-										Password
-									</FormLabel>
-									<Input id="password" type="password" />
-								</FormControl>
-							</Stack>
-							<HStack justify="space-between">
-								<Checkbox defaultChecked>Remember me</Checkbox>
-								<Button variant="text" size="sm">
-									Forgot password?
-								</Button>
-							</HStack>
+						<form onSubmit={handleFormSubmit}>
 							<Stack spacing="6">
-								<Button>Sign in</Button>
+								<Stack spacing="5">
+									<FormControl>
+										<FormLabel htmlFor="username">
+											Username
+										</FormLabel>
+										<Input
+											id="username"
+											onChange={(e) => {
+												setFormData({
+													...formData,
+													username: e.target.value,
+												});
+											}}
+										/>
+										<FormLabel htmlFor="password">
+											Password
+										</FormLabel>
+										<Input
+											id="password"
+											type="password"
+											onChange={(e) => {
+												setFormData({
+													...formData,
+													password: e.target.value,
+												});
+											}}
+										/>
+									</FormControl>
+								</Stack>
+								<HStack justify="space-between">
+									<Checkbox defaultChecked>
+										Remember me
+									</Checkbox>
+									<Button variant="text" size="sm">
+										Forgot password?
+									</Button>
+								</HStack>
+								<Stack spacing="6">
+									<Button type="submit">Sign in</Button>
+								</Stack>
 							</Stack>
-						</Stack>
+						</form>
 					</Box>
 				</Stack>
 			</Container>
