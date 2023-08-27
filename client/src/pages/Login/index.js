@@ -46,49 +46,68 @@ function Login() {
 			  })
 			: toast.close(loadingToastId);
 		token
-			? toast({
-					id: successToastId,
-					title: "Already logged in",
-					description: "You are already logged in.",
-					status: "info",
-					duration: 5000,
-					isClosable: true,
-			  })
+			? toast(
+					{
+						id: successToastId,
+						title: "Already logged in",
+						description: "You are already logged in.",
+						status: "info",
+						duration: 5000,
+						isClosable: true,
+					},
+					window.location.replace("/")
+			  )
 			: null;
 	});
 	/**
 	 *
 	 * @param {Event} event
 	 */
+	// const handleFormSubmit = async function (event) {
+	// 	event.preventDefault();
+	// 	await loginUser({
+	// 		variables: { ...formData },
+	// 	});
+	// 	auth.login(data?.login?.token);
+	// 	let foundToken = !!auth.getToken();
+	// 	foundToken && toast.isActive(errorToastId)
+	// 		? toast({
+	// 				id: errorToastId,
+	// 				title: "Successful token",
+	// 				description: "You have a token.",
+	// 				status: "success",
+	// 				duration: 5000,
+	// 		  })
+	// 		: null;
+	// 	toast.close(loadingToastId);
+	// 	return !error && foundToken
+	// 		? (toast({
+	// 				title: "Logged in",
+	// 				description: "You are now logged in.",
+	// 				status: "success",
+	// 		  }),
+	// 		  console.log(foundToken))
+	// 		: toast({
+	// 				title: "Error",
+	// 				description: "There was an error logging in.",
+	// 				status: "error",
+	// 		  });
+	// };
+
 	const handleFormSubmit = async function (event) {
 		event.preventDefault();
-		await loginUser({
-			variables: { ...formData },
-		});
-		auth.login(data?.login?.token);
-		let foundToken = !!auth.getToken();
-		foundToken && toast.isActive(errorToastId)
-			? toast({
-					id: errorToastId,
-					title: "Successful token",
-					description: "You have a token.",
-					status: "success",
-					duration: 5000,
-			  })
-			: null;
-		toast.close(loadingToastId);
-		return !error && foundToken
-			? (toast({
-					title: "Logged in",
-					description: "You are now logged in.",
-					status: "success",
-			  }),
-			  console.log(foundToken))
-			: toast({
-					title: "Error",
-					description: "There was an error logging in.",
-					status: "error",
-			  });
+		try {
+			const { data } = await loginUser({
+				variables: { ...formData },
+			});
+			auth.login(data.login.token);
+		} catch (error) {
+			toast({
+				title: "Error",
+				description: "There was an error logging in.",
+				status: "error",
+			});
+		}
 	};
 
 	return (
