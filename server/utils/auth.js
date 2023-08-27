@@ -28,9 +28,23 @@ module.exports = {
 			console.log("Invalid Token");
 		}
 	},
-	signToken: function ({ username, password }) {
+	signToken: function ({
+		username,
+		password,
+		firstName,
+		lastName,
+		internalRef,
+		position,
+	}) {
 		// setup the payload with the user's username and their password
-		const payload = { username, password };
+		const payload = {
+			username,
+			password,
+			firstName,
+			lastName,
+			internalRef,
+			position,
+		};
 		// send signed jwt with payload with secret and expiration time
 		return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
 	},
