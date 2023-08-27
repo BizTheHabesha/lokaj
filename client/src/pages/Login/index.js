@@ -5,7 +5,7 @@ import {
 	Button,
 	Checkbox,
 	Container,
-	Divider,
+	Spinner,
 	FormControl,
 	FormLabel,
 	Heading,
@@ -158,7 +158,10 @@ function Login() {
 									</Button>
 								</HStack>
 								<Stack spacing="6">
-									<Button type="submit">Sign in</Button>
+									<Button type="submit">
+										{loading ? <Spinner mr={2} /> : null}
+										Sign in
+									</Button>
 								</Stack>
 							</Stack>
 						</form>
