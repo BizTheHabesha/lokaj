@@ -45,7 +45,7 @@ function Login() {
 					isClosable: true,
 			  })
 			: toast.close(loadingToastId);
-		token
+		token && !toast.isActive(successToastId)
 			? toast(
 					{
 						id: successToastId,
@@ -63,48 +63,45 @@ function Login() {
 	 *
 	 * @param {Event} event
 	 */
-	// const handleFormSubmit = async function (event) {
-	// 	event.preventDefault();
-	// 	await loginUser({
-	// 		variables: { ...formData },
-	// 	});
-	// 	auth.login(data?.login?.token);
-	// 	let foundToken = !!auth.getToken();
-	// 	foundToken && toast.isActive(errorToastId)
-	// 		? toast({
-	// 				id: errorToastId,
-	// 				title: "Successful token",
-	// 				description: "You have a token.",
-	// 				status: "success",
-	// 				duration: 5000,
-	// 		  })
-	// 		: null;
-	// 	toast.close(loadingToastId);
-	// 	return !error && foundToken
-	// 		? (toast({
-	// 				title: "Logged in",
-	// 				description: "You are now logged in.",
-	// 				status: "success",
-	// 		  }),
-	// 		  console.log(foundToken))
-	// 		: toast({
-	// 				title: "Error",
-	// 				description: "There was an error logging in.",
-	// 				status: "error",
-	// 		  });
-	// };
 
 	const handleFormSubmit = async function (event) {
 		event.preventDefault();
+		if (!formData.username || !formData.password) {
+			!toast.isActive(4)
+				? toast({
+						id: 4,
+						title: "Error",
+						description: "Please enter a username and password.",
+						status: "warning",
+				  })
+				: null;
+			return;
+		}
 		try {
 			const { data } = await loginUser({
 				variables: { ...formData },
 			});
+			if (!data.login.token) {
+				toast({
+					id: errorToastId,
+					title: "Error",
+					description: "Incorrect username and password!",
+					status: "error",
+				});
+				return;
+			}
 			auth.login(data.login.token);
+			toast({
+				id: successToastId,
+				title: "Logged in",
+				description: "You are now logged in.",
+				status: "success",
+				duration: 5000,
+			});
 		} catch (error) {
 			toast({
 				title: "Error",
-				description: "There was an error logging in.",
+				description: `${error.message}`,
 				status: "error",
 			});
 		}
