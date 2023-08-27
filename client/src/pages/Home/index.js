@@ -36,9 +36,12 @@ import {
 	GrConfigure,
 } from "react-icons/gr";
 import { color } from "framer-motion";
+import auth from "../../utils/auth";
 
 function Home(props) {
+	auth.loggedIn() ? null : window.location.replace("/login");
 	const scheme = props.defaultScheme;
+
 	const { colorMode, toggleColorMode } = useColorMode();
 	const griditembg = colorMode === "light" ? "gray.100" : "gray.800";
 	const getUserPermission = () => {

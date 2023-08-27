@@ -30,8 +30,11 @@ import {
 	BsStar,
 	BsPencil,
 } from "react-icons/bs";
+import auth from "../../utils/auth";
 
 function Reports(props) {
+	auth.loggedIn() ? null : window.location.replace("/login");
+
 	const scheme = props.defaultScheme;
 
 	return (

@@ -35,8 +35,10 @@ import {
 	AlertDescription,
 } from "@chakra-ui/react";
 import { uuid } from "../../utils/helpers";
+import auth from "../../utils/auth";
 
 function CarLog(props) {
+	auth.loggedIn() ? null : window.location.replace("/login");
 	const {
 		loading: allTicketsloading,
 		error: allTicketserror,

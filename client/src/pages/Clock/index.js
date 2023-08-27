@@ -31,9 +31,12 @@ import {
 import { AiOutlineCamera, AiOutlineCloudUpload } from "react-icons/ai";
 import { LuScanFace } from "react-icons/lu";
 import Ticket from "../Ticket";
+import auth from "../../utils/auth";
 
 function Clock(props) {
+	auth.loggedIn() ? null : window.location.replace("/login");
 	const scheme = props.defaultScheme;
+
 	const [time, setTime] = useState(new Date());
 
 	const { isOpen: collapseTimeIsOpen, onToggle: onToggleTime } =
