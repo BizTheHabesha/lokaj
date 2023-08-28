@@ -1,0 +1,11 @@
+.camera-container {
+	margin: 0px auto;
+	width: 500px;
+	height: 375px;
+	border: 10px #fff solid;
+}
+#camera-stream {
+	width: 500px;
+	height: 375px;
+	background-color: #fff;
+}

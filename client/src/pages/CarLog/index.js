@@ -35,8 +35,10 @@ import {
 	AlertDescription,
 } from "@chakra-ui/react";
 import { uuid } from "../../utils/helpers";
+import auth from "../../utils/auth";
 
 function CarLog(props) {
+	auth.loggedIn() ? null : window.location.replace("/login");
 	const {
 		loading: allTicketsloading,
 		error: allTicketserror,
@@ -71,9 +73,9 @@ function CarLog(props) {
 
 	useEffect(() => {
 		let errCount = 0;
-		const noDataId = uuid();
-		const errorId = uuid();
-		const tooManyId = uuid();
+		const noDataId = 1;
+		const errorId = 2;
+		const tooManyId = 3;
 		const interval = setInterval(() => {
 			if (allTicketserror && !toast.isActive(errorId)) {
 				toast({

@@ -8,8 +8,14 @@ import {
 	AiOutlineFile,
 	AiOutlineLogout,
 } from "react-icons/ai";
+import auth from "../../utils/auth";
 
 function Navbar(props) {
+	function handleLogout() {
+		auth.logout();
+		window.location.assign("/login");
+	}
+
 	return (
 		<Tabs
 			defaultIndex={props.active}
@@ -46,7 +52,7 @@ function Navbar(props) {
 					</Tab>
 				</Tooltip>
 				<Tooltip label="Logout">
-					<Tab px={1} as={"a"} href="/login">
+					<Tab px={1} as={"a"} onClick={handleLogout}>
 						<AiOutlineLogout size={30} />
 					</Tab>
 				</Tooltip>
