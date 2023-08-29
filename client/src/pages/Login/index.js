@@ -34,7 +34,7 @@ function Login() {
 	const successToastId = 3;
 
 	useEffect(() => {
-		const token = auth.getToken();
+		const token = auth.loggedIn();
 		loading && !toast.isActive(loadingToastId)
 			? toast({
 					id: loadingToastId,
