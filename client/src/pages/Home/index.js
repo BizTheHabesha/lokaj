@@ -22,6 +22,14 @@ import {
 	IconButton,
 	Tooltip,
 	Text,
+	useDisclosure,
+	Tag,
+	TagLabel,
+	Avatar,
+	TagRightIcon,
+	AvatarBadge,
+	AvatarGroup,
+	Divider,
 } from "@chakra-ui/react";
 import { uuid } from "../../utils/helpers";
 import PageContent from "../../components/PageContent";
@@ -37,21 +45,34 @@ import {
 } from "react-icons/gr";
 import { color } from "framer-motion";
 import auth from "../../utils/auth";
+import UserModal from "../../components/UserModal";
+import { positionTagData, getPositionPermissions } from "../../utils/helpers";
 
 function Home(props) {
+	// redirect to login if not logged in
 	auth.loggedIn() ? null : window.location.replace("/login");
+	// get user profile from token
+	const profile = auth.getProfile().data;
+	const userTag = positionTagData(profile.position);
+	const userPermissions = getPositionPermissions(profile.position);
+	// default color scheme
 	const scheme = props.defaultScheme;
 
+	// color mode context for theme switching
 	const { colorMode, toggleColorMode } = useColorMode();
-	const griditembg = colorMode === "light" ? "gray.100" : "gray.800";
-	const getUserPermission = () => {
-		// TODO: get user permission from server
-		return {
-			serverManagement: false,
-			userManagement: true,
-			position: "afmanager",
-		};
-	};
+	// grid color options for light and dark mode
+	const griditembg = colorMode === "light" ? "gray.100" : "gray.900";
+	// function to extract user permission from token [TODO]
+	/**
+	 *
+	 * @returns {{serverManagement: boolean, userManagement: boolean}}
+	 */
+	// disclosure context for user modalww
+	const {
+		isOpen: isOpenUserModal,
+		onOpen: onOpenUserModal,
+		onClose: onCloseUserModal,
+	} = useDisclosure();
 
 	return (
 		<PageContent defaultScheme={scheme} active={0}>
@@ -71,7 +92,6 @@ function Home(props) {
 					<Text pl={2} size={"sm"}>
 						@ Grand Hyatt Denver
 					</Text>
-					<VStack></VStack>
 				</GridItem>
 				<GridItem
 					className="section-bordered-subtle"
@@ -80,9 +100,10 @@ function Home(props) {
 					bg={griditembg}>
 					<HStack display={"flex"} justifyContent={"center"}>
 						<Image
+							mt={"3rem"}
 							src="./logo.svg"
 							fallbackSrc="https://placehold.co/350x350"
-							h="30rem"
+							h={"20rem"}
 						/>
 						<Heading px={10} size="2xl">
 							X
@@ -90,18 +111,19 @@ function Home(props) {
 						<Image
 							src="./img/ghdlogo.png"
 							fallbackSrc="https://placehold.co/350x350"
-							h="10rem"
+							h={"10rem"}
 						/>
 					</HStack>
 				</GridItem>
 				<GridItem
 					className="section-bordered-subtle"
 					colSpan={3}
-					bg={griditembg}>
-					<Heading pt={2} pl={2} size="lg">
+					bg={griditembg}
+					px={4}>
+					<Heading pt={2} pb={1} size="lg">
 						Check Out Forecast
 					</Heading>
-					<HStack px={2} h="40%">
+					<HStack h="40%">
 						<Card h="100%" w="20%">
 							<CardHeader>
 								<Heading size="md">
@@ -413,10 +435,10 @@ function Home(props) {
 							</CardBody>
 						</Card>
 					</HStack>
-					<Heading pt={2} pl={2} size="lg">
+					<Heading pt={2} pb={1} size="lg">
 						Check In Forecast
 					</Heading>
-					<HStack px={2} pb={2} h="40%">
+					<HStack pb={2} h="40%">
 						<Card h="100%" w="20%">
 							<CardHeader>
 								<Heading size="md">
@@ -729,10 +751,15 @@ function Home(props) {
 						</Card>
 					</HStack>
 				</GridItem>
-				<GridItem colSpan={3}>
+				<GridItem
+					bg={griditembg}
+					pb={4}
+					pl={2}
+					className="section-bordered-subtle"
+					colSpan={3}>
 					<Heading size="lg">Utilities</Heading>
 
-					<HStack h={"100%"} px={2}>
+					<HStack mt={2} px={2} h={"50%"}>
 						<Tooltip
 							label={
 								colorMode === "light"
@@ -740,7 +767,7 @@ function Home(props) {
 									: "Light Mode"
 							}>
 							<IconButton
-								colorScheme="gray"
+								colorScheme={scheme}
 								onClick={toggleColorMode}
 								icon={
 									colorMode === "light" ? (
@@ -754,52 +781,97 @@ function Home(props) {
 						</Tooltip>
 						<Tooltip label="App Settings">
 							<IconButton
-								colorScheme="gray"
+								colorScheme={scheme}
 								icon={<GrConfigure />}
 								size={"lg"}
 							/>
 						</Tooltip>
-						<Tooltip label="My Settings">
+						<Tooltip
+							label={
+								userPermissions.self.hasProfile
+									? userPermissions.self.canView
+										? "My settings"
+										: "You do not have permission"
+									: `"${profile.username}" does not have a profile`
+							}>
 							<IconButton
-								colorScheme="gray"
+								colorScheme={scheme}
 								icon={<GrUserSettings />}
 								size={"lg"}
+								onClick={onOpenUserModal}
+								isDisabled={!userPermissions.self.canView}
 							/>
 						</Tooltip>
 						<Tooltip
 							label={
-								getUserPermission().serverManagement
+								userPermissions.server.canView
 									? "Server Management"
-									: "Higher Privillage Required"
+									: "You do not have permission"
 							}>
 							<IconButton
-								colorScheme="gray"
+								colorScheme={scheme}
 								icon={<GrCloud />}
 								size={"lg"}
-								isDisabled={
-									!getUserPermission().serverManagement
-								}
+								isDisabled={!userPermissions.server.canView}
 							/>
 						</Tooltip>
 						<Tooltip
 							label={
-								getUserPermission().userManagement
+								userPermissions.users.canView
 									? "User Management"
-									: "Higher Privillage Required"
+									: "You do not have permission"
 							}>
 							<IconButton
-								colorScheme="gray"
+								colorScheme={scheme}
 								icon={<GrDocumentUser />}
 								size={"lg"}
-								isDisabled={!getUserPermission().userManagement}
+								onClick={() => {
+									console.log("click!");
+								}}
+								isDisabled={!userPermissions.users.canView}
 							/>
 						</Tooltip>
-						<Text>
-							{`Logged in as: ${'""'} (${getUserPermission().position.toUpperCase()})`}
-						</Text>
+						<Divider orientation="vertical" />
+						<Tag
+							size={"lg"}
+							variant="subtle"
+							colorScheme={userTag.color}>
+							<Avatar
+								size="xs"
+								name={`${profile.firstName} ${profile.lastName}`}
+								ml={-1}
+								mr={2}>
+								{/* TODO: Change badge based on clock status */}
+								<AvatarBadge boxSize="1.25em" bg="green.500" />
+							</Avatar>
+							<TagLabel>{userTag.text}</TagLabel>
+							<TagRightIcon as={userTag.icon} />
+						</Tag>
+						<Divider orientation="vertical" />
+						<AvatarGroup
+							size="md"
+							max={4}
+							onClick={() => {
+								window.location.replace("/payroll");
+							}}
+							onMouseEnter={(e) => {
+								e.target.style.cursor = "pointer";
+							}}>
+							{/* TODO: #48 Display currently clocked in users in AvatarGroup */}
+							<Avatar name="Ryan Florence" />
+							<Avatar name="Segun Adebayo" />
+							<Avatar name="Kent Dodds" />
+						</AvatarGroup>
 					</HStack>
 				</GridItem>
 			</Grid>
+			{isOpenUserModal ? (
+				<UserModal
+					profile={{ ...profile, permissions: userPermissions }}
+					isOpen={isOpenUserModal}
+					onClose={onCloseUserModal}
+				/>
+			) : null}
 		</PageContent>
 	);
 }
