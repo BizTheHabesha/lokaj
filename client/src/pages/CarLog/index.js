@@ -173,11 +173,14 @@ function CarLog(props) {
 	};
 
 	const convertDate = (millis) => {
-		console.log(`millis: ${millis}`);
 		return millis;
 		return DateTime.fromMillis(Number(millis)).toLocaleString(
 			DateTime.DATE_MED
 		);
+	};
+
+	const onRowHover = (e) => {
+		e.target.style.cursor = "pointer";
 	};
 
 	return (
@@ -272,6 +275,7 @@ function CarLog(props) {
 												ticket.type ===
 													"OvernightSelf" ? (
 												<Tr
+													onMouseEnter={onRowHover}
 													key={ticket.ticketId}
 													onClick={() => {
 														setTicket(ticket);
