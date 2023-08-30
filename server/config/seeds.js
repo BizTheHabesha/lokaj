@@ -88,6 +88,14 @@ db.once("open", async () => {
 		position: "runner",
 		password: "password12345",
 	});
+	await User.create({
+		username: "LocStaff",
+		lastName: "Staff",
+		firstName: "Location",
+		internalRef: "000000",
+		position: "guest",
+		password: "password12345",
+	});
 	console.log("Users seeded");
 
 	// delete previous locations from db
