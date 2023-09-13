@@ -6,6 +6,7 @@ import { ADD_TICKET } from "../../utils/mutations";
 import PageContent from "../../components/PageContent";
 import TicketModal from "../../components/TicketModal";
 import { HiOutlineBellAlert } from "react-icons/hi2";
+import { GrCloud } from "react-icons/gr";
 import { DateTime } from "luxon";
 import "./index.css";
 import {
@@ -34,8 +35,10 @@ import {
 	AlertDescription,
 } from "@chakra-ui/react";
 import { uuid } from "../../utils/helpers";
+import auth from "../../utils/auth";
 
 function CarLog(props) {
+	auth.loggedIn() ? null : window.location.replace("/login");
 	const {
 		loading: allTicketsloading,
 		error: allTicketserror,
@@ -69,8 +72,10 @@ function CarLog(props) {
 	const toast = useToast();
 
 	useEffect(() => {
-		const noDataId = uuid();
-		const errorId = uuid();
+		let errCount = 0;
+		const noDataId = 1;
+		const errorId = 2;
+		const tooManyId = 3;
 		const interval = setInterval(() => {
 			if (allTicketserror && !toast.isActive(errorId)) {
 				toast({
@@ -101,12 +106,26 @@ function CarLog(props) {
 					variant: "left-accent",
 				});
 			} else {
-				toast.closeAll();
-				toast({
-					title: "Something went wrong...",
-					status: "error",
-					position: "bottom",
-				});
+				toast.close(noDataId);
+
+				if (errCount < 5)
+					toast({
+						title: `${allTicketserror.message}`,
+						status: "error",
+						position: "bottom",
+					});
+				else {
+					if (!toast.isActive(tooManyId))
+						toast({
+							id: tooManyId,
+							icon: <GrCloud />,
+							title: "Too many errors. Try refreshing the page. Contact a supervisor or server manager if the error continues!",
+							status: "error",
+							position: "bottom",
+							isClosable: false,
+						});
+				}
+				errCount++;
 			}
 		}, 1000);
 		return () => clearInterval(interval);
@@ -154,11 +173,14 @@ function CarLog(props) {
 	};
 
 	const convertDate = (millis) => {
-		console.log(`millis: ${millis}`);
 		return millis;
 		return DateTime.fromMillis(Number(millis)).toLocaleString(
 			DateTime.DATE_MED
 		);
+	};
+
+	const onRowHover = (e) => {
+		e.target.style.cursor = "pointer";
 	};
 
 	return (
@@ -207,12 +229,14 @@ function CarLog(props) {
 								</Tr>
 							</Thead>
 							<Tbody>
-								{allTicketsloading
+								{allTicketsloading || allTicketserror
 									? Array(10)
 											.fill()
 											.map((el) => {
 												return (
-													<Tr key={uuid()}>
+													<Tr
+														key={uuid()}
+														className="carlog-table-row">
 														<Td>
 															<Skeleton>
 																111000
@@ -251,11 +275,13 @@ function CarLog(props) {
 												ticket.type ===
 													"OvernightSelf" ? (
 												<Tr
+													onMouseEnter={onRowHover}
 													key={ticket.ticketId}
 													onClick={() => {
 														setTicket(ticket);
 														onOpenTicketModal();
-													}}>
+													}}
+													className="carlog-table-row">
 													<Td>{ticket.ticketId}</Td>
 													<Td>
 														{ticket.lastName},{" "}
@@ -340,7 +366,7 @@ function CarLog(props) {
 								</Tr>
 							</Thead>
 							<Tbody>
-								{allTicketsloading
+								{allTicketsloading || allTicketserror
 									? Array(10)
 											.fill()
 											.map((el) => {

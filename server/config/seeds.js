@@ -1,5 +1,5 @@
 const db = require("./connection");
-const { Ticket, User } = require("../models");
+const { Ticket, User, Loc } = require("../models");
 const seedData = require("./astable.json");
 
 db.once("open", async () => {
@@ -41,14 +41,72 @@ db.once("open", async () => {
 	await User.deleteMany();
 	// setup a user seed
 	await User.create({
+		username: "admin",
+		lastName: "Admin",
+		firstName: "Admin",
+		internalRef: "@000000",
+		position: "admin",
+		password: "admin12345",
+	});
+	await User.create({
+		username: "nheitmann",
+		lastName: "Heitmann",
+		firstName: "Neal",
+		internalRef: "@214510",
+		position: "fmanager",
+		password: "password12345",
+	});
+	await User.create({
+		username: "hmamora",
+		lastName: "Mamora",
+		firstName: "Habel",
+		internalRef: "@225410",
+		position: "fmanager",
+		password: "password12345",
+	});
+	await User.create({
+		username: "jossicakes",
+		lastName: "Teklu",
+		firstName: "Jossi",
+		internalRef: "514510",
+		position: "supervisor",
+		password: "password12345",
+	});
+	await User.create({
+		username: "asanchez",
+		lastName: "Sanchez",
+		firstName: "Aaron",
+		internalRef: "325520",
+		position: "supervisor",
+		password: "password12345",
+	});
+	await User.create({
 		username: "Biz",
 		lastName: "Gebrekidan",
 		firstName: "Bisrat",
 		internalRef: "314510",
-		position: "manager",
+		position: "runner",
 		password: "password12345",
 	});
-	console.log("User seeded");
+	await User.create({
+		username: "LocStaff",
+		lastName: "Staff",
+		firstName: "Location",
+		internalRef: "000000",
+		position: "guest",
+		password: "password12345",
+	});
+	console.log("Users seeded");
 
+	// delete previous locations from db
+	await Loc.deleteMany();
+	// add a single location
+	await Loc.create({
+		fullName: "Grand Hyatt Denver",
+		shortName: "Grand Hyatt",
+		codeName: "GHD",
+		code: "080311GH",
+	});
+	console.log("Locations seeded");
 	process.exit();
 });

@@ -31,9 +31,12 @@ import {
 import { AiOutlineCamera, AiOutlineCloudUpload } from "react-icons/ai";
 import { LuScanFace } from "react-icons/lu";
 import Ticket from "../Ticket";
+import auth from "../../utils/auth";
 
 function Clock(props) {
+	auth.loggedIn() ? null : window.location.replace("/login");
 	const scheme = props.defaultScheme;
+
 	const [time, setTime] = useState(new Date());
 
 	const { isOpen: collapseTimeIsOpen, onToggle: onToggleTime } =
@@ -48,6 +51,18 @@ function Clock(props) {
 
 		return () => clearInterval(interval);
 	}, []);
+
+	let video = document.querySelector("#camera-stream");
+	if (navigator.mediaDevices.getUserMedia) {
+		navigator.mediaDevices
+			.getUserMedia({ video: true })
+			.then(function (stream) {
+				video.srcObject = stream;
+			})
+			.catch(function (error) {
+				console.log("Something went wrong!");
+			});
+	}
 
 	return (
 		<PageContent defaultScheme={scheme} active={4}>
@@ -94,10 +109,14 @@ function Clock(props) {
 						</ListItem>
 					</List>
 				</GridItem>
-				<GridItem
-					className="section-bordered"
-					rowSpan={6}
-					colSpan={8}></GridItem>
+				<GridItem className="section-bordered" rowSpan={6} colSpan={8}>
+					<Heading p={5}>Camera</Heading>
+					<div className="camera-container">
+						<AspectRatio ratio={16 / 9}>
+							<video id="camera-stream" autoPlay muted loop />
+						</AspectRatio>
+					</div>
+				</GridItem>
 				<GridItem rowSpan={8} colSpan={2} className="section-bordered">
 					<Heading p={5}>Info</Heading>
 					<Divider />

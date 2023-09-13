@@ -26,8 +26,11 @@ import {
 import { AiOutlineUser } from "react-icons/ai";
 import { LuRocket } from "react-icons/lu";
 import { DateTime } from "luxon";
+import auth from "../../utils/auth";
 
 function Payroll(props) {
+	auth.loggedIn() ? null : window.location.replace("/login");
+
 	const griditembg = "papayawhip";
 	const recentAndActiveRes = [
 		{
@@ -94,7 +97,7 @@ function Payroll(props) {
 											? "Clocked In"
 											: ""
 									}>
-									<Card>
+									<Card w={"80%"}>
 										<CardHeader>
 											<HStack>
 												<Heading size="md">

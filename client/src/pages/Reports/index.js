@@ -28,9 +28,13 @@ import {
 	BsGear,
 	BsClipboard2Plus,
 	BsStar,
+	BsPencil,
 } from "react-icons/bs";
+import auth from "../../utils/auth";
 
 function Reports(props) {
+	auth.loggedIn() ? null : window.location.replace("/login");
+
 	const scheme = props.defaultScheme;
 
 	return (
@@ -205,6 +209,11 @@ function Reports(props) {
 									/>
 								</GridItem>
 							</Grid>
+							<Tooltip label="Not Implemented">
+								<Button isDisabled mt={5} w={"100%"}>
+									<BsPencil />
+								</Button>
+							</Tooltip>
 						</VStack>
 					</Container>
 				</GridItem>
