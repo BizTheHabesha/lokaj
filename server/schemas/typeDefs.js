@@ -37,6 +37,7 @@ const typeDefs = gql`
 		internalRef: String
 		position: String
 		password: String
+		imgref: String
 	}
 
 	type Auth {
