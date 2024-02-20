@@ -1,4 +1,5 @@
 import React from "react";
+import { useQuery } from "@apollo/client";
 import PageContent from "../../components/PageContent";
 import {
 	Card,
@@ -22,42 +23,50 @@ import {
 	Tbody,
 	Td,
 	Divider,
+	Icon,
 } from "@chakra-ui/react";
 import { AiOutlineUser } from "react-icons/ai";
 import { LuRocket } from "react-icons/lu";
 import { DateTime } from "luxon";
+import { QUERY_ALL_USERS } from "../../utils/queries";
 import auth from "../../utils/auth";
+import { positionTagData } from "../../utils/helpers";
 
 function Payroll(props) {
 	auth.loggedIn() ? null : window.location.replace("/login");
-
+	const { loading, data } = useQuery(QUERY_ALL_USERS);
 	const griditembg = "papayawhip";
-	const recentAndActiveRes = [
-		{
-			_id: "5e8848098100000100000001",
-			username: "Biz",
-			lastName: "Gebrekidan",
-			firstName: "Bisrat",
-			internalRef: "314510",
-			position: "runner",
-			imgref: "https://bit.ly/dan-abramov",
-			status: "active",
-			timeIn: new Date().getTime() - 1000 * 60 * 60 * 8,
-			timeOut: new Date().getTime() + 1000 * 60 * 60 * 8,
-		},
-		{
-			_id: "5e8848098100000100000001",
-			username: "jossicakes",
-			lastName: "Teklu",
-			firstName: "Joseph",
-			internalRef: "312000",
-			position: "supervisor",
-			imgref: "https://bit.ly/dan-abramov",
-			status: "inactive",
-			timeIn: new Date().getTime() - 1000 * 60 * 60 * 8,
-			timeOut: new Date().getTime() + 1000 * 60 * 60 * 8,
-		},
-	];
+	// const recentAndActiveRes = [
+	// 	{
+	// 		_id: "5e8848098100000100000001",
+	// 		username: "Biz",
+	// 		lastName: "Gebrekidan",
+	// 		firstName: "Bisrat",
+	// 		internalRef: "314510",
+	// 		position: "runner",
+	// 		imgref: "https://bit.ly/dan-abramov",
+	// 		status: "active",
+	// 		timeIn: new Date().getTime() - 1000 * 60 * 60 * 8,
+	// 		timeOut: new Date().getTime() + 1000 * 60 * 60 * 8,
+	// 		next: DateTime.now().plus({ days: 1 }).toLocaleString(),
+	// 	},
+	// 	{
+	// 		_id: "5e8848098100000100000001",
+	// 		username: "jossicakes",
+	// 		lastName: "Teklu",
+	// 		firstName: "Joseph",
+	// 		internalRef: "312000",
+	// 		position: "supervisor",
+	// 		imgref: "https://bit.ly/dan-abramov",
+	// 		status: "inactive",
+	// 		timeIn: new Date().getTime() - 1000 * 60 * 60 * 8,
+	// 		timeOut: new Date().getTime() + 1000 * 60 * 60 * 8,
+	// 		next: DateTime.now().plus({ days: 1 }).toLocaleString(),
+	// 	},
+	// ];
+
+	const recentAndActiveRes = data?.users || [];
+	console.log(recentAndActiveRes);
 
 	const doGetFullUser = (username) => {
 		// TODO: get full user info from API
@@ -101,7 +110,8 @@ function Payroll(props) {
 										<CardHeader>
 											<HStack>
 												<Heading size="md">
-													{res.username}
+													{res.firstName}{" "}
+													{res.lastName}
 												</Heading>
 												{res.status === "active" ? (
 													<Text
@@ -116,12 +126,9 @@ function Payroll(props) {
 											</HStack>
 											<HStack>
 												<Text pt={1} fontSize="sm">
-													{res.firstName}{" "}
-													{res.lastName}
+													{res.username}
 												</Text>
-												<AiOutlineUser
-													display={"inline"}
-												/>
+												<Icon />
 											</HStack>
 										</CardHeader>
 										<CardBody>
@@ -145,7 +152,7 @@ function Payroll(props) {
 														Next Scheduled
 													</Heading>
 													<Text pt="2" fontSize="sm">
-														{res.nex}
+														{res.next}
 													</Text>
 												</Box>
 											</Stack>
@@ -172,13 +179,7 @@ function Payroll(props) {
 									</Thead>
 									<Tbody>
 										<Tr>
-											<Td>
-												{DateTime.fromMillis(
-													Number(res.timeIn)
-												).toFormat(
-													DateTime.DATETIME_FULL_WITH_SECONDS
-												)}
-											</Td>
+											<Td></Td>
 											<Td>{res.timeOut}</Td>
 											<Td>{res.timeOut - res.timeIn}</Td>
 										</Tr>

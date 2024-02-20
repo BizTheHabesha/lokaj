@@ -27,14 +27,29 @@ const userSchema = new Schema({
 	password: {
 		type: String,
 		required: true,
-		minlength: 8
-	}
+		minlength: 8,
+	},
+	imgref: {
+		type: String,
+		required: false,
+		default: "https://bit.ly/dan-abramov",
+	},
+	lastIn: {
+		type: String,
+		required: false,
+		default: "0",
+	},
+	lastOut: {
+		type: String,
+		required: false,
+		default: "1",
+	},
 });
 
 // recursive function for hasing password before the creation of user
-userSchema.pre('save', async function(next){
+userSchema.pre("save", async function (next) {
 	// only hash the user's password if the user is just being created or if they are changing the password
-	if (!this.isModified('password')) return next();
+	if (!this.isModified("password")) return next();
 	// hash the user's password 10 times
 	this.password = await bcrypt.hash(this.password, 10);
 
@@ -43,15 +58,16 @@ userSchema.pre('save', async function(next){
 });
 
 // compare the hashed password with the incoming password
-userSchema.methods.isCorrectPassword = async function(password) {
+userSchema.methods.isCorrectPassword = async function (password) {
 	// check if the given password matches the hashed password
 	const res = await bcrypt.compare(password, this.password);
-	// if the givn password was incorrect return incorrect password 
-	if(!res){return json({message: "Incorrect psswd"})}
+	// if the givn password was incorrect return incorrect password
+	if (!res) {
+		return json({ message: "Incorrect psswd" });
+	}
 	// return true
 	return res;
 };
-
 
 const User = model("User", userSchema);
 module.exports = User;

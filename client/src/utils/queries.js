@@ -10,6 +10,7 @@ export const QUERY_ALL_USERS = gql`
 			internalRef
 			position
 			password
+			imgref
 		}
 	}
 `;
@@ -25,6 +26,7 @@ export const QUERY_USER = gql`
 			internalRef
 			position
 			password
+			imgref
 		}
 	}
 `;
